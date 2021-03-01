@@ -1,9 +1,12 @@
 
-import { render } from '@testing-library/react';
-import React, {useState} from 'react';
+//import { render } from '@testing-library/react';
+import React, {useState, useEffect} from 'react';
 import {Form, Container, Image, Row , Button} from 'react-bootstrap';
+import {Alertas} from '../Toast';
+import TriangleAlert from '../../static/alertas/exclamation-triangle.svg' 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Login.css';
+import '../Toast/Toasts.css';
 import login from '../../static/login.svg';
 import {
     useHistory
@@ -15,8 +18,9 @@ export default function Login(props){
     let history = useHistory();
 
 
-    const [auth, setAuth] = useState(null);
-
+    const [auth, setAuth] = useState({userName:'', userPassword:''});
+    
+    const [alerta, setAlerta] = useState([]);
     let getCredentials = (event) => {
         const name = event.currentTarget.name;
         const value = event.currentTarget.value;
@@ -48,9 +52,22 @@ export default function Login(props){
                 
             })
             .catch((err) => {
-                console.log(err)
+                setAlerta([{
+                    title: 'Warning',
+                    description: 'Credenciales invalidas',
+                    backgroundColor:'#f39c12',
+                    icon:TriangleAlert
+                }]);
             });
             
+        }
+        else {
+            setAlerta([{
+                title: 'Warning',
+                description: 'El usuario y la clave no pueden estar vacios',
+                backgroundColor:'#f39c12',
+                icon:TriangleAlert
+            }]);
         }
 
         
@@ -59,11 +76,11 @@ export default function Login(props){
     return(
         <div className="App">
             <div className="Login">
-                <Form>
+                <Form className="form-login">
                     <Form.Group>
                         <Container>
                             <Row className="justify-content-md-center">
-                                <Image className="Logo" src={login} roundedCircle/>
+                                <Image className="Logo" src={login}/>
                             </Row>
                             
                         </Container>
@@ -85,6 +102,10 @@ export default function Login(props){
                         <Button onClick={autentificar} variant="primary" block>
                             Iniciar sesión
                         </Button>
+                    </Form.Group>
+                    <Form.Group>
+                        {console.log('create',alerta)}
+                       <Alertas toastList={alerta} position="rel-top-right"/>
                     </Form.Group>
                 </Form>
             </div>

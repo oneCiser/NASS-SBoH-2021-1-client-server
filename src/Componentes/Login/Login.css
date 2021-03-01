@@ -1,21 +1,25 @@
 .Login {
     margin-top: 12vh;
-    margin-left: 34vw;
-    margin-right: 34vw;
     margin-bottom: 12vh;
-    padding: 1%;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    padding: 2%;
     border: 1px solid #8395a7;
     border-radius: 8px;
     background-color: white;
 }
 
-
+.form-login {
+    width: 30vw;
+    height: 65vh;
+}
 
 .Logo {
-    width: 20%;
-    height: 20%;
-    border:1px solid black;
+    width: 80px;
+    height: 80px;;
 }
+
+
 
 .App {
     background-color: #c8d6e5;

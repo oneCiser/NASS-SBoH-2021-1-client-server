@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 function App() {
+  document.title = 'JFLS'
   return (
     <Router>
       <Switch>

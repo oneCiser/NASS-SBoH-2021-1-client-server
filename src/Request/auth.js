@@ -23,8 +23,24 @@ class Auth {
         
     }
 
-    async CreateUser(){
+    async CreateUser(username, email, name, type_user, maxsize, access_token){
 
+        const opt = {
+            method:'POST',
+            url:this.URL,
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':`Bearer ${access_token}`
+
+            },
+            data:{
+                username,
+                email,
+                name,
+                type_user,
+                maxsize
+            }
+        }
     }
 }
 
