@@ -1,6 +1,7 @@
 import React, {useState ,useEffect} from 'react';
 import {Toast} from 'react-bootstrap';
 import './Toasts.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 export default function Alertas(props) {
@@ -42,14 +43,15 @@ export default function Alertas(props) {
                             style={{backgroundColor:toast.backgroundColor}}
                             name={i} 
                             key={i} 
-                            className={`${position}`}>
+                            className={`toast-container ${position}`}>
                             <Toast.Header 
+                                className="toast-head"
                                 closeButton={false}>
                                 <img src={toast.icon} className="rounded mr-2" alt="" />
                                 
                                 <strong className="mr-auto">{toast.title}</strong>
                                 <button name={i} onClick={toggleShow}
-                                     type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                     type="button" className="ml-2 mb-1 close float-right" data-dismiss="toast" aria-label="Close">
                                     <span aria-hidden="true">x</span>
                                 </button>
                             </Toast.Header>

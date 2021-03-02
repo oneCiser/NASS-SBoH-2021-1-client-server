@@ -73,6 +73,11 @@ export default function Login(props){
         
         
     };
+
+    let forgotPassword = () => {
+        history.push('/forgot');
+    }
+
     return(
         <div className="App">
             <div className="Login">
@@ -102,10 +107,11 @@ export default function Login(props){
                         <Button onClick={autentificar} variant="primary" block>
                             Iniciar sesión
                         </Button>
+                        <Button variant="link" className="float-right" onClick={forgotPassword}>¿Olvidaste tu contraseña?</Button>
                     </Form.Group>
                     <Form.Group>
                         {console.log('create',alerta)}
-                       <Alertas toastList={alerta} position="rel-top-right"/>
+                       <Alertas toastList={alerta} position="rel-top-left"/>
                     </Form.Group>
                 </Form>
             </div>

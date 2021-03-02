@@ -1,19 +1,30 @@
 import {Login} from './Componentes/Login';
 import './App.css';
-import React from 'react';
+import {Menu} from './Componentes/Menu';
+import React, {useState} from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Switch
+  Switch,
+  Redirect
 } from "react-router-dom";
+import {PrivateRoute, Authentification, LayoutMenu} from './Layout';
 
 function App() {
   document.title = 'JFLS'
+
+  
+  //console.log(auth)
   return (
     <Router>
       <Switch>
-        <Route exact path="/login" component={Login} />
-        <Route component={Login}/>
+        
+        <Authentification exact path="/login" component={Login}/>
+        <PrivateRoute path="/CLIENT" component={LayoutMenu} isRol = "CLIENT"/>
+        <PrivateRoute path="/ADMIN" component={LayoutMenu} isRol = "ADMIN"/>
+        <Route>
+          <Redirect to="/login" />
+        </Route>
       </Switch>
     </Router>
 

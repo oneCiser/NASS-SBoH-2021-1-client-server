@@ -3,18 +3,27 @@
     width: 90%;
 }
 
+.toast-container {
+    padding: 0%;
+    margin: 0%;
 
+}
+
+.toast-head {
+    vertical-align: top;
+    width: 100%;
+}
 
 .abs-top-left {
     position: absolute;
     
-    top: 0;
-    left: 0;
+    top: 10px;
+    left: 10px;
 }
 .rel-top-left {
     position: relative;
-    top: 0;
-    left: 0;
+    top: 10px;
+    left: 10px;
 }
 
 .rel-top-right {

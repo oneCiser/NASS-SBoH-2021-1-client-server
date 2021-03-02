@@ -42,6 +42,22 @@ class Auth {
             }
         }
     }
+
+    getUser() {
+        const user = localStorage.getItem('user');
+        return user ? JSON.parse(user) : null;
+    }
+
+    whoIAm(){
+        const loggedIn = localStorage.getItem('user');
+        return loggedIn ? JSON.parse(loggedIn).type_user : null;
+    }
+
+    isRol(rol){ 
+        const loggedIn = localStorage.getItem('user');
+        return loggedIn ? JSON.parse(loggedIn).type_user == rol: null;
+
+    }
 }
 
 export default new Auth();
