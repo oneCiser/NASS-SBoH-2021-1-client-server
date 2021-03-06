@@ -1,7 +1,7 @@
 
 //import { render } from '@testing-library/react';
-import React, {useState, useEffect} from 'react';
-import {Form, Container, Image, Row , Button} from 'react-bootstrap';
+import React, {useState, useRef} from 'react';
+import {Form, Container, Image, Row ,Modal, Button} from 'react-bootstrap';
 import {Alertas} from '../Toast';
 import TriangleAlert from '../../static/alertas/exclamation-triangle.svg' 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,6 +19,9 @@ export default function Login(props){
 
 
     const [auth, setAuth] = useState({userName:'', userPassword:''});
+    const [stateForgot, setStateForgot] = useState(false);
+    const emailRef = useRef(null);
+    
     
     const [alerta, setAlerta] = useState([]);
     let getCredentials = (event) => {
@@ -73,48 +76,97 @@ export default function Login(props){
         
         
     };
+    const handleChangePasswd = () => {
+        const email = emailRef.current.value;
+        if(email){
+            Auth.forgotPasswd(email)
+            .then(() => {
+                setStateForgot(false);
+                emailRef.current.style.borderColor = "#ced4da";
+            })
+            .catch((err) => {
+                emailRef.current.style.borderColor = "red";
+            });
+        }
+        else{
+            emailRef.current.style.borderColor = "red";
+        }
+        
+    }
 
     let forgotPassword = () => {
-        history.push('/forgot');
+        setStateForgot(!stateForgot);
+        if(emailRef.current) emailRef.current.style.borderColor = "#ced4da";
+        
     }
 
     return(
-        <div className="App">
-            <div className="Login">
-                <Form className="form-login">
-                    <Form.Group>
-                        <Container>
-                            <Row className="justify-content-md-center">
-                                <Image className="Logo" src={login}/>
-                            </Row>
-                            
-                        </Container>
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>
-                            Username
-                        </Form.Label>
-                        <Form.Control type="text" placeholder="Enter username" name="userName" onChange={getCredentials}/>
-                    </Form.Group>
+        <>
+            <div className="App">
+                <div className="Login">
+                    <Form className="form-login">
+                        <Form.Group>
+                            <Container>
+                                <Row className="justify-content-md-center">
+                                    <Image className="Logo" src={login}/>
+                                </Row>
+                                
+                            </Container>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>
+                                Username
+                            </Form.Label>
+                            <Form.Control type="text" placeholder="Enter username" name="userName" onChange={getCredentials}/>
+                        </Form.Group>
 
-                    <Form.Group>
-                        <Form.Label>
-                            Password
-                        </Form.Label>
-                        <Form.Control type="password" placeholder="Password" name="userPassword" onChange={getCredentials}/> 
-                    </Form.Group>
-                    <Form.Group>
-                        <Button onClick={autentificar} variant="primary" block>
-                            Iniciar sesión
-                        </Button>
-                        <Button variant="link" className="float-right" onClick={forgotPassword}>¿Olvidaste tu contraseña?</Button>
-                    </Form.Group>
-                    <Form.Group>
-                        {console.log('create',alerta)}
-                       <Alertas toastList={alerta} position="rel-top-left"/>
-                    </Form.Group>
-                </Form>
+                        <Form.Group>
+                            <Form.Label>
+                                Password
+                            </Form.Label>
+                            <Form.Control type="password" placeholder="Password" name="userPassword" onChange={getCredentials}/> 
+                        </Form.Group>
+                        <Form.Group>
+                            <Button onClick={autentificar} variant="primary" block>
+                                Iniciar sesión
+                            </Button>
+                            <Button variant="link" className="float-right" onClick={forgotPassword}>¿Olvidaste tu contraseña?</Button>
+                        </Form.Group>
+                        <Form.Group>
+                            {console.log('create',alerta)}
+                        <Alertas toastList={alerta} position="rel-top-left"/>
+                        </Form.Group>
+                    </Form>
+                </div>
             </div>
-        </div>
+            <Modal
+                show={stateForgot}
+                onHide={forgotPassword}
+                backdrop="static"
+            >
+                <Modal.Header closeButton >
+                    <Modal.Title>Email</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                    <Form.Group >
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control 
+                            id="email"  
+                            name="email" 
+                            type="email" 
+                            placeholder="Email"
+                            ref={emailRef} />
+                    </Form.Group>
+                    </Form>
+                </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={forgotPassword}>
+                            Cerrar
+                        </Button>
+                    <Button variant="primary" onClick={handleChangePasswd}>Aceptar</Button>
+                </Modal.Footer>
+            </Modal>
+        </>
     );
 }

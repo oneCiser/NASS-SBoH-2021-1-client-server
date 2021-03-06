@@ -1,12 +1,13 @@
 import {Login} from './Componentes/Login';
+import {Restore} from './Componentes/Restore';
 import './App.css';
 import {Menu} from './Componentes/Menu';
-import React, {useState} from 'react';
+import React, {useState } from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect
+  Redirect, useParams
 } from "react-router-dom";
 import {PrivateRoute, Authentification, LayoutMenu} from './Layout';
 
@@ -22,6 +23,7 @@ function App() {
         <Authentification exact path="/login" component={Login}/>
         <PrivateRoute path="/CLIENT" component={LayoutMenu} isRol = "CLIENT"/>
         <PrivateRoute path="/ADMIN" component={LayoutMenu} isRol = "ADMIN"/>
+        <Route path="/forgot/:id" children={<Restore />}/>
         <Route>
           <Redirect to="/login" />
         </Route>
@@ -30,5 +32,7 @@ function App() {
 
   );
 }
+
+
 
 export default App;

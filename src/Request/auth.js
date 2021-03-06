@@ -58,6 +58,62 @@ class Auth {
         return loggedIn ? JSON.parse(loggedIn).type_user == rol: null;
 
     }
+    async changePasswd(password){
+        const user = this.getUser();
+        const opt = {
+            method:'PUT',
+            url:this.URL + 'changepasswd',
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':`Bearer ${user.access_token}`
+            },
+            data:{
+                password:password
+            }
+        }
+    
+        
+           return axios(
+                opt
+            )
+    }
+
+    async forgotPasswd(email){
+        const opt = {
+            method:'POST',
+            url:this.URL + 'forgot',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            data:{
+                email:email
+            }
+        }
+    
+        
+           return axios(
+                opt
+            )
+    }
+
+    async restorePasswd(token, password){
+        const opt = {
+            method:'PUT',
+            url:this.URL + 'restore',
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':`Bearer ${token}`
+            },
+            data:{
+                password:password
+            }
+        }
+    
+        
+           return axios(
+                opt
+            )
+    }
 }
 
 export default new Auth();
