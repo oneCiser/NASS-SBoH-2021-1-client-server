@@ -16,6 +16,7 @@ export default function PrivateRoute ({ component: Component, isRol, ...rest }) 
             role == isRol  ? (
           <Component {...props} />
           
+          
             
           ) : (
             <Redirect to={{ pathname: '/login', state: { from: props.location } }} />

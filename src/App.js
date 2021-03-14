@@ -1,7 +1,7 @@
 import {Login} from './Componentes/Login';
 import {Restore} from './Componentes/Restore';
 import './App.css';
-import {Menu} from './Componentes/Menu';
+
 import React, {useState } from 'react';
 import {
   BrowserRouter as Router,
@@ -9,7 +9,7 @@ import {
   Switch,
   Redirect, useParams
 } from "react-router-dom";
-import {PrivateRoute, Authentification, LayoutMenu} from './Layout';
+import {PrivateRoute, Authentification, LayoutMenu, ClientLayout} from './Layout';
 
 function App() {
   document.title = 'JFLS'
@@ -21,7 +21,7 @@ function App() {
       <Switch>
         
         <Authentification exact path="/login" component={Login}/>
-        <PrivateRoute path="/CLIENT" component={LayoutMenu} isRol = "CLIENT"/>
+        <PrivateRoute path="/CLIENT" component={ClientLayout} isRol = "CLIENT"/>
         <PrivateRoute path="/ADMIN" component={LayoutMenu} isRol = "ADMIN"/>
         <Route path="/forgot/:id" children={<Restore />}/>
         <Route>
