@@ -48,6 +48,9 @@ export default function ClientOptions(){
                         <Tab.Pane eventKey="second">
                         2
                         </Tab.Pane>
+                        <Tab.Pane eventKey="third">
+                            ssss
+                        </Tab.Pane>
                     </Tab.Content>
                     </Col>
                 </Row>
