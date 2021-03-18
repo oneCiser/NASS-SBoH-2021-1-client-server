@@ -8,9 +8,28 @@ import {
     Col,
     Nav
 } from 'react-bootstrap';
+import FileVisor from '../FileVisor';
+
+const paths = [
+    {
+        name:"uno"
+    },
+    {
+        name:"dos"
+    },
+    {
+        name:"tres"
+    },
+    {
+        name:"cuatro"
+    },
+    {
+        name:"cinco"
+    }
+];
 
 export default function ClientOptions(){
-
+    console.log("ClientOptions()")
 
     return(
         <>
@@ -43,7 +62,7 @@ export default function ClientOptions(){
                     <Col sm={9}>
                     <Tab.Content>
                         <Tab.Pane eventKey="first">
-                        1 sasasas asasas asasas asasas asasas
+                            <FileVisor paths={paths}/>
                         </Tab.Pane>
                         <Tab.Pane eventKey="second">
                         2
