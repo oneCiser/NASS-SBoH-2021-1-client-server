@@ -27,7 +27,7 @@ export default function makeTree(_array){
                 tmpPart = {
                     name: part,
                     children: [],
-                    files:[],
+                    // files:[],
                     parent: null
                 }
                 currentLevel.push(tmpPart);
@@ -36,12 +36,15 @@ export default function makeTree(_array){
                 
             }
             if(j == path.length - 1){
-                tmpPart.files.push(_array[i]);
+                tmpPart.children.push(_array[i]);
             }
             
             parent = tmpPart;
         }
         
     }
-    return tree;
+    return {
+        name: "Home",
+        children: tree
+    };
 }

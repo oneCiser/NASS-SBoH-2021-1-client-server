@@ -1,4 +1,4 @@
-import React, {useState ,useEffect} from 'react';
+import React, {useState ,useEffect, useRef} from 'react';
 import {Toast} from 'react-bootstrap';
 import './Toasts.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 export default function Alertas(props) {
     var { toastList, position } = props;
     const [list, setList] = useState(toastList);
-    const [showToasts, setShowToasts] = useState({arrayToasts:[]})
+    const [showToasts, setShowToasts] = useState({arrayToasts:[]});
     let startToasts = () => {
         var arrayToasts = [];
         toastList.map((toast, i) => {
@@ -26,9 +26,10 @@ export default function Alertas(props) {
         
         
     }
+    
     useEffect(() => {
         
-        console.log('eefect',toastList)
+        
         setList(toastList)
         startToasts()
         
@@ -43,6 +44,8 @@ export default function Alertas(props) {
                             style={{backgroundColor:toast.backgroundColor}}
                             name={i} 
                             key={i} 
+                            delay={5000}
+                            autohide
                             className={`toast-container ${position}`}>
                             <Toast.Header 
                                 className="toast-head"

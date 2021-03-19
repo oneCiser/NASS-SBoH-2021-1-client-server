@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import makeTree from './TreeMaker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ClientOptions.css'
 import * as Icon from 'react-bootstrap-icons';
@@ -10,27 +11,13 @@ import {
 } from 'react-bootstrap';
 import FileVisor from '../FileVisor';
 
-const paths = [
-    {
-        name:"uno"
-    },
-    {
-        name:"dos"
-    },
-    {
-        name:"tres"
-    },
-    {
-        name:"cuatro"
-    },
-    {
-        name:"cinco"
-    }
-];
 
 export default function ClientOptions(){
-    console.log("ClientOptions()")
-
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+    const [directory, setDirectory] = useState(null);
+    useEffect(() => {
+        setDirectory([makeTree(user.directory)])
+    },[])
     return(
         <>
             <Tab.Container   defaultActiveKey="first">
@@ -62,7 +49,10 @@ export default function ClientOptions(){
                     <Col sm={9}>
                     <Tab.Content>
                         <Tab.Pane eventKey="first">
-                            <FileVisor paths={paths}/>
+                            {   directory &&
+                                <FileVisor paths={directory}/>
+                            }
+                            
                         </Tab.Pane>
                         <Tab.Pane eventKey="second">
                         2

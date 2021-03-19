@@ -11,6 +11,7 @@ div.col-sm-3 {
     box-sizing: border-box;
 }
 div.col-sm-9 {
+    overflow-y: scroll;
     padding-right: 0px;
     padding-left: 5px;
     max-width: calc(100vw - 180px + 15px);

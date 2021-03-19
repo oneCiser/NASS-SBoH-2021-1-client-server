@@ -133,7 +133,7 @@ export default function Login(props){
                             <Button variant="link" className="float-right" onClick={forgotPassword}>¿Olvidaste tu contraseña?</Button>
                         </Form.Group>
                         <Form.Group>
-                            {console.log('create',alerta)}
+                            
                         <Alertas toastList={alerta} position="rel-top-left"/>
                         </Form.Group>
                     </Form>

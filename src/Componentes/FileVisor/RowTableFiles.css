@@ -1,0 +1,11 @@
+.name-file {
+    overflow: hidden;
+}
+.name-file-a{
+    color: black;
+}
+.name-file-a:hover {
+    color: black;
+    text-decoration: underline;
+    cursor: pointer;
+}
