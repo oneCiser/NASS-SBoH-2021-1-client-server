@@ -3,6 +3,10 @@
     height: 100%;
 }
 
+.menu-nav{
+    background-color: #2A2AE8 !important;
+}
+
 .Logo {
     width: 40px;
     height: 40px;

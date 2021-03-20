@@ -108,7 +108,7 @@ export default function Login(props){
                         <Form.Group>
                             <Container>
                                 <Row className="justify-content-md-center">
-                                    <Image className="Logo" src={login}/>
+                                    <Image className="Logo-login" src={login}/>
                                 </Row>
                                 
                             </Container>

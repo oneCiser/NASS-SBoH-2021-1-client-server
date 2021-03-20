@@ -90,7 +90,7 @@ export default function Menu(props) {
     
     return(
         <>
-            <Navbar bg="primary" variant="dark">
+            <Navbar bg="primary" variant="dark" className="menu-nav">
                 
                 <Navbar.Brand href="/home">
                     <Image className="Logo" src={login}/>

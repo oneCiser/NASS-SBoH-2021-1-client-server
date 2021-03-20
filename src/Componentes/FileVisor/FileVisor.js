@@ -42,7 +42,7 @@ export default function FileVisor(props){
                     <TableFiles 
                         onClick={onClick}
                         files={path.paths[path.paths.length - 1].children} 
-                        titles={['name',"size"]}/>
+                        titles={['name',"size","modified"]}/>
                 </>
             }
         </>
