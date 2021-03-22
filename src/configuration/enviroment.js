@@ -1,7 +1,8 @@
 const URL = {
-    base:'http://localhost:3000/api/',
+    base:'http://nass2.bucaramanga.upb.edu.co/api/',
     auth:'auth/',
-    file: 'file/'
+    file: 'file/',
+    admin: 'admin/'
 }
 
 export default URL
