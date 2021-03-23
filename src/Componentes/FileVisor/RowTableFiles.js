@@ -69,7 +69,6 @@ export default function RowTableFiles(props){
                                                 
                                             </Dropdown>
                                         </Col>
-                                    
                                     </Row>
                                     
                                 </td>)
