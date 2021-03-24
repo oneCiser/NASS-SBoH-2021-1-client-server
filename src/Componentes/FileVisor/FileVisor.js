@@ -37,18 +37,18 @@ export default function FileVisor(props){
         setPath({paths:tmp});
 
     }
-    const [p, setP] =useState(null)
-    var im = new Image();
-    im.onload = function() {
-        console.log(this.width + 'x' + this.height);
-      }
-    File.getImg("http://nass2.bucaramanga.upb.edu.co/api/file/img/60582f966388e6c5fb10da27")
-    .then(i => setP(i.objectUrl))
-    im.src = p;
+    // const [p, setP] =useState(null)
+    // var im = new Image();
+    // im.onload = function() {
+    //     console.log(this.width + 'x' + this.height);
+    //   }
+    // File.getImg("http://nass2.bucaramanga.upb.edu.co/api/file/img/60582f966388e6c5fb10da27")
+    // .then(i => setP(i.objectUrl))
+    // im.src = p;
     
     return(
         <>
-            <img src={p}/>
+            {/* <img src={p}/> */}
             <NavFiles 
                 size={size}
                 onSyncClick={onSyncClick}
