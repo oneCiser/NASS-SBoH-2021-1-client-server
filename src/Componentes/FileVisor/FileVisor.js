@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TableFiles from './TableFiles';
+import NavFiles from './NavFiles';
+import {File} from '../../Request';
 import {
     Container,
     Row,
@@ -10,7 +12,12 @@ import Path from './Path';
 
 
 export default function FileVisor(props){
-    const {paths} = props;
+    const {
+        paths,
+        size,
+        onSyncClick,
+        onNewFolder
+    } = props;
     const [path,setPath] = useState(null);
 
     useEffect(() => {
@@ -19,9 +26,7 @@ export default function FileVisor(props){
     const onClickPath = (index) => {
         
         const tmp = [...path.paths];
-        console.log("index ", index + 1, " number", tmp.length - index + 1)
         tmp.splice(index + 1,tmp.length - index + 1);
-        console.log("tmp ",tmp)
         setPath({paths:tmp});
     } 
     const onClick = (index, file) => {
@@ -32,8 +37,22 @@ export default function FileVisor(props){
         setPath({paths:tmp});
 
     }
+    const [p, setP] =useState(null)
+    var im = new Image();
+    im.onload = function() {
+        console.log(this.width + 'x' + this.height);
+      }
+    File.getImg("http://nass2.bucaramanga.upb.edu.co/api/file/img/60582f966388e6c5fb10da27")
+    .then(i => setP(i.objectUrl))
+    im.src = p;
+    
     return(
         <>
+            <img src={p}/>
+            <NavFiles 
+                size={size}
+                onSyncClick={onSyncClick}
+                onNewFolderClick={onNewFolder}/>
             
             {   path &&
                 <>
