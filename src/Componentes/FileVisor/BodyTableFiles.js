@@ -8,7 +8,7 @@ export default function BodyTableFiles(props){
         onClick
     } = props;
     return(
-        <>
+        // <>
             <tbody>
                 {
                     files.map((file, i) => {
@@ -24,6 +24,6 @@ export default function BodyTableFiles(props){
                     })
                 }
             </tbody>
-        </>
+        // </>
     );
 }

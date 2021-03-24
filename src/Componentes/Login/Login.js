@@ -134,7 +134,7 @@ export default function Login(props){
                         </Form.Group>
                         <Form.Group>
                             
-                        <Alertas toastList={alerta} position="rel-top-left"/>
+                        <Alertas toastList={alerta} position="abs-bot-rigth"/>
                         </Form.Group>
                     </Form>
                 </div>

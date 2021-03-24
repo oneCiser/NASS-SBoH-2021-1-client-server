@@ -20,6 +20,11 @@
     top: 10px;
     left: 10px;
 }
+.abs-bot-rigth {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
 .rel-top-left {
     position: relative;
     top: 10px;
