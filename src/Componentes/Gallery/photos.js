@@ -13,15 +13,14 @@ function processImages(){
   })
   .then( (array) =>{
     
-    array.map(url => {
-      File.getImg(url)
-      .then(res => {
+    array.map(url => { // realizo un mapeo de la url
+      File.getImg(url) // paso cada url a la funcion que me devuelve la informacion de las imagenes
+      .then(res => { // dentro de la promesa
         var im = new Image();
         im.src = res.objectUrl;
-        return {src:res.objectUrl, width: im.width, height: im.height}
+        return {src:res.objectUrl, width: im.width, height: im.height} //formateo
       }).then( obj => photos.push(obj))
-      .catch(e => console.log(e))  
-      //console.log(photos)          
+      .catch(e => console.log(e))        
     });   
   }
   )
@@ -31,29 +30,3 @@ function processImages(){
 
 export default processImages;
 
-// function processImages(){
-//   var fotos =  null;
-//   var width = 3;
-//   var height = 4;
-//   var image = [];
-
-//   File.getImages().then((res)=>{ // url
-//     fotos = res.data.images;
-//     console.log(fotos)
-//     fotos.map((i)=>{
-//       //File.getImg(i.url).then((res2)=>{} )
-//       //console.log(res2.objectUrl)
-      
-//        // imagen
-//       //console.log(image)
-//       image.push({src : i.url, 
-//         width: width,
-//         height: height
-//       })
-//       console.log(image)
-      
-//     });
-//     console.log(image)
-//     return image
-//   }).catch(err => console.log(err))
-// }
