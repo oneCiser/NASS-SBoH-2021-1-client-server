@@ -2,6 +2,7 @@ import React, { useState, useCallback,useEffect } from "react";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 import  processImages  from "./photos";
+import axios from "axios";
 
 function Gallerys() {
   const [currentImage, setCurrentImage] = useState(0);
@@ -17,8 +18,11 @@ function Gallerys() {
     setViewerIsOpen(false);
   };
   useEffect(() => {
+
+
     setPhotos(processImages())
-  },[])
+  },[]);
+
   return (
     <div>
       <Gallery photos={photos} onClick={openLightbox} />
