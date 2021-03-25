@@ -11,6 +11,7 @@ import {
 } from 'react-bootstrap';
 import {File} from '../../Request';
 import FileVisor from '../FileVisor';
+import Gallerys from '../Gallery';
 
 
 export default function ClientOptions(){
@@ -106,7 +107,7 @@ export default function ClientOptions(){
                             
                         </Tab.Pane>
                         <Tab.Pane eventKey="photos">
-                        2
+                            <Gallerys/>
                         </Tab.Pane>
                         <Tab.Pane eventKey="videos">
                             ssss

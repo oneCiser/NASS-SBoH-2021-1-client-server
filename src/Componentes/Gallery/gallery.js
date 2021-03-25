@@ -1,12 +1,12 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback,useEffect } from "react";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
-import { photos } from "./photos";
+import  processImages  from "./photos";
 
-export default function Gallery() {
+function Gallerys() {
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
-
+  const [photos, setPhotos] = useState(null);
   const openLightbox = useCallback((event, { photo, index }) => {
     setCurrentImage(index);
     setViewerIsOpen(true);
@@ -16,7 +16,9 @@ export default function Gallery() {
     setCurrentImage(0);
     setViewerIsOpen(false);
   };
-
+  useEffect(() => {
+    setPhotos(processImages())
+  },[])
   return (
     <div>
       <Gallery photos={photos} onClick={openLightbox} />
@@ -37,5 +39,9 @@ export default function Gallery() {
     </div>
   );
 }
+export default Gallerys;
+
+
+
 
 
