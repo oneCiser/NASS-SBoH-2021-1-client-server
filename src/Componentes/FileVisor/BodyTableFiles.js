@@ -4,12 +4,14 @@ import RowTableFiles from './RowTableFiles';
 export default function BodyTableFiles(props){
     const {
         titles,
+        deleteFile,
+        renameFile,
         files,
         onClick
     } = props;
     return(
         // <>
-            <tbody>
+            <tbody className="overflow-auto">
                 {
                     files.map((file, i) => {
                         return (
@@ -19,6 +21,8 @@ export default function BodyTableFiles(props){
                                 key={i+"-BodyTableFiles-"+file['_id']} 
                                 name={i} 
                                 titles={titles} 
+                                deleteFile={deleteFile}
+                                renameFile={renameFile}
                                 file={file} />
                                 )
                     })

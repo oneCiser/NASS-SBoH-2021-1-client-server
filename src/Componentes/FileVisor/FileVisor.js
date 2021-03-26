@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import makeTree from './TreeMaker';
 import TableFiles from './TableFiles';
 import NavFiles from './NavFiles';
 import {File} from '../../Request';
@@ -12,31 +13,144 @@ import Path from './Path';
 
 
 export default function FileVisor(props){
-    const {
-        paths,
-        size,
-        onSyncClick,
-        onNewFolder
-    } = props;
-    const [path,setPath] = useState(null);
-
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+    const [directory, setDirectory] = useState(null);
+    
     useEffect(() => {
-        setPath({paths});
+        reload()
+        
     },[]);
+    let reload = () => {
+        File.getDirectory()
+        .then((res) => {
+            var tmpUser = {...user}
+            tmpUser.directory = res.data.files;
+            tmpUser['size'] = tmpUser.directory.reduce((acc, el) => acc + el.size, 0)
+            setUser(tmpUser)
+            setDirectory([makeTree(res.data.files)]);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
+;
     const onClickPath = (index) => {
         
-        const tmp = [...path.paths];
+        const tmp = [...directory];
         tmp.splice(index + 1,tmp.length - index + 1);
-        setPath({paths:tmp});
+        setDirectory(tmp);
     } 
     const onClick = (index, file) => {
-        var tmp = [...path.paths];
+        var tmp = [...directory];
         if(file.children){
             tmp.push(file);
         }
-        setPath({paths:tmp});
+
+        setDirectory(tmp);
 
     }
+
+    let newFolder = (folder) => {
+        var tmp = [...directory];
+        var currentFolder = {...tmp[tmp.length-1]};
+        var found = false;
+        for (let i = 0; i < currentFolder.children.length; i++) {
+            
+            if(currentFolder.children[i].children &&
+                currentFolder.children[i].name == folder.name
+                )
+            {
+                found = true;
+                break;
+            }
+            
+            
+        }
+        
+        if(!found){
+            currentFolder.children.push(folder);
+            console.log(tmp)
+            setDirectory(tmp);
+        }
+
+    }
+    let newFile = (file) => {
+        let path = [];
+        directory.forEach((element, i) => {
+            if(i > 0) path.push(element.name)
+        });
+        var tmp = [...directory];
+        var currentFolder = {...tmp[tmp.length-1]};
+        const url = path.join('/');
+        File.upload(file, url)
+        .then(res => {
+            currentFolder.children.push(res.data);
+            tmp[tmp.length-1] = currentFolder;
+            setDirectory(tmp);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+
+    let deleteFile = (index, _id) => {
+        
+        var tmp = [...directory];
+        var currentFolder = {...tmp[tmp.length-1]}; 
+        
+
+        if(_id){
+            File.delete(_id);
+        }
+        else{
+            let path = [];
+            directory.forEach((element, i) => {
+                if(i > 0) path.push(element.name)
+            });
+            path.push(currentFolder.children[index].name)
+            const url = path.join('/');
+            File.deleteFolder(url);
+        }
+        currentFolder.children.splice(index,1);
+        tmp[tmp.length-1] = currentFolder;
+        setDirectory(tmp)
+
+    }
+
+    let renameFile = (index, _id, new_name) => {
+        var tmp = [...directory];
+        var currentFolder = {...tmp[tmp.length-1]}; 
+        var tmpFile = {...currentFolder.children[index]};
+        let path = [];
+        if(_id){
+            
+            directory.forEach((element, i) => {
+                if(i > 0) path.push(element.name)
+            });
+            const url = path.join('/');
+            tmpFile.url = url;
+            tmpFile.name = new_name;
+            tmpFile.modified = new Date(Date.now());
+            File.renameFile(_id, new_name, url);
+        }
+        else{
+            directory.forEach((element, i) => {
+                if(i > 0) path.push(element.name)
+            });
+            const newPath = [...path]
+            newPath.push(new_name)
+            const newNameFolder = newPath.join('/');
+            path.push(currentFolder.children[index].name)
+            const oldFolder = path.join('/');
+            tmpFile.name = new_name;
+            File.renameFolder(oldFolder,newNameFolder);
+        }
+        currentFolder.children[index] = tmpFile
+        tmp[tmp.length-1] = currentFolder;
+        setDirectory(tmp)
+    }
+    
     // const [p, setP] =useState(null)
     // var im = new Image();
     // im.onload = function() {
@@ -48,20 +162,26 @@ export default function FileVisor(props){
     
     return(
         <>
-            {/* <img src={p}/> */}
-            <NavFiles 
-                size={size}
-                onSyncClick={onSyncClick}
-                onNewFolderClick={onNewFolder}/>
             
-            {   path &&
+            {   user.size &&
+                <NavFiles 
+                    size={{size:user.size,maxsize:user.maxsize}}
+                    newFile={newFile}
+                    onSyncClick={reload}
+                    onNewFolderClick={newFolder}/>
+            }
+            
+            {   directory &&
                 <>
-                    <Path path={path.paths} onClickPath={onClickPath}/>
-                
+                    <Path path={directory} onClickPath={onClickPath}/>
+                    
                     <TableFiles 
+                        deleteFile={deleteFile}
+                        renameFile={renameFile}
                         onClick={onClick}
-                        files={path.paths[path.paths.length - 1].children} 
-                        titles={['name',"size","modified"]}/>
+                        files={directory[directory.length - 1].children} 
+                        titles={['name',"size","modified","share"]}/>
+                    
                 </>
             }
         </>

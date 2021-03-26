@@ -1,5 +1,5 @@
-
-.table{
-    
-    overflow-y: auto !important;
+.talbe-scroll {
+    overflow-y: auto;
+    height: 68vh;
+    max-height: 68vh;
 }

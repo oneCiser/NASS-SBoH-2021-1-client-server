@@ -24,9 +24,9 @@ function App() {
         <PrivateRoute path="/CLIENT" component={ClientLayout} isRol = "CLIENT"/>
         <PrivateRoute path="/ADMIN" component={LayoutMenu} isRol = "ADMIN"/>
         <Route path="/forgot/:id" children={<Restore />}/>
-        {/* <Route>
+        <Route>
           <Redirect to="/login" />
-        </Route> */}
+        </Route>
       </Switch>
     </Router>
 

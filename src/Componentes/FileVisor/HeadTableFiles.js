@@ -7,7 +7,7 @@ export default function HeadTableFiles(props){
     }
     return(
         <>
-            <thead style={{ position: "sticky", top: 0, }}>
+            <thead >
                 <tr>
                     <th> <Icon.Files size={20}/> </th>
                     {

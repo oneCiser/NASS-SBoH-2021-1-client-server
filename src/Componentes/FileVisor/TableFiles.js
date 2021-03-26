@@ -8,6 +8,8 @@ import HeadTableFiles from './HeadTableFiles';
 import BodyTableFiles from './BodyTableFiles';
 export default function TableFiles(props){
     const {
+        deleteFile,
+        renameFile,
         titles,
         files,
         onClick
@@ -15,16 +17,17 @@ export default function TableFiles(props){
 
     return(
         <>
-        <div className="overflow-auto">
-            <Table >
-                <HeadTableFiles titles={titles}/>
-                <BodyTableFiles
-                    onClick={onClick} 
-                    titles={titles} 
-                    files={files} />
-            </Table>
-        </div>
-
+            <div className="talbe-scroll">
+                <Table >
+                    <HeadTableFiles titles={titles}/>
+                    <BodyTableFiles
+                        onClick={onClick} 
+                        renameFile={renameFile}
+                        deleteFile={deleteFile}
+                        titles={titles} 
+                        files={files} />
+                </Table>
+            </div>
         </>
     );
 }
