@@ -42,6 +42,7 @@ class File{
         const opt = {
             method:'GET',
             url:url,
+            responseType: 'blob',
             headers:{
                 'Content-Type':'application/json',
                 'Authorization':`Bearer ${user.access_token}`,
@@ -161,6 +162,41 @@ class File{
            return axios(
                 opt
             )
+    }
+    async download(_id){
+        const user = Auth.getUser();
+        const opt = {
+            method:'GET',
+            url:`${this.URL}/download/${_id}` ,
+            responseType: 'blob',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${user.access_token}`
+            },
+        }
+        
+           return axios(
+                opt
+            )  
+    }
+    async donwloadFolder(folder){
+        const user = Auth.getUser();
+        const opt = {
+            method:'POST',
+            url:`${this.URL}/folder` ,
+            responseType: 'blob',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${user.access_token}`
+            },
+            data:{
+                folder
+            }
+        }
+        
+           return axios(
+                opt
+            )  
     }
 }
 

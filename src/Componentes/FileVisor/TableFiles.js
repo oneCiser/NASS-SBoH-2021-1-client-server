@@ -10,6 +10,7 @@ export default function TableFiles(props){
     const {
         deleteFile,
         renameFile,
+        downloadFile,
         titles,
         files,
         onClick
@@ -24,6 +25,7 @@ export default function TableFiles(props){
                         onClick={onClick} 
                         renameFile={renameFile}
                         deleteFile={deleteFile}
+                        downloadFile={downloadFile}
                         titles={titles} 
                         files={files} />
                 </Table>

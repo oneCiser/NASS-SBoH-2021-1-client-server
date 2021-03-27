@@ -4,6 +4,7 @@ import makeTree from './TreeMaker';
 import TableFiles from './TableFiles';
 import NavFiles from './NavFiles';
 import {File} from '../../Request';
+import FileDownload  from 'js-file-download'
 import {
     Container,
     Row,
@@ -93,6 +94,27 @@ export default function FileVisor(props){
             console.log(error);
         });
     }
+    let downloadFile = (file) => {
+        if(file._id){
+            File.download(file._id)
+            .then(res => {
+                FileDownload(res.data, file.name)
+            })
+            .catch(error => console.log(error));
+        }
+        if(file.children){
+            let path = [];
+            directory.forEach((element, i) => {
+                if(i > 0) path.push(element.name)
+            });
+            path.push(file.name)
+            const url = path.join('/');
+            File.donwloadFolder(url)
+            .then(res => {
+                FileDownload(res.data, `${file.name}.zip`)
+            })
+        }
+    }
 
     let deleteFile = (index, _id) => {
         
@@ -179,6 +201,7 @@ export default function FileVisor(props){
                         deleteFile={deleteFile}
                         renameFile={renameFile}
                         onClick={onClick}
+                        downloadFile={downloadFile}
                         files={directory[directory.length - 1].children} 
                         titles={['name',"size","modified","share"]}/>
                     
