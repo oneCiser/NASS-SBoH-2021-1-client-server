@@ -1,29 +1,33 @@
 import File from '../../Request/files';
 
-function processImages(){
-  var photos = []
-  File.getImages()
+async function processImages(){
+  var photos = [];
+  await File.getImages()
   .then((res)=>{ return res.data.images}) // traigo el json de la peticion
-  .then((data)=>{ 
-    var arr =[] // creo una arreglo donde almaceno las url
-    data.map((i) => {
-      arr = [...arr,i.url]; //asigno esa informacion
-    })
-    return arr   // return el arreglo de url
-  })
-  .then( (array) =>{
-    
-    array.map(url => { // realizo un mapeo de la url
-      File.getImg(url) // paso cada url a la funcion que me devuelve la informacion de las imagenes
-      .then(res => { // dentro de la promesa
-        var im = new Image();
-        im.src = res.objectUrl;
-        return {src:res.objectUrl, width: im.width, height: im.height} //formateo
-      }).then( obj => photos.push(obj))
-      .catch(e => console.log(e))        
-    });   
-  }
-  )
+  .then(async (data)=>{
+    let arr = [];
+    for (let i = 0; i < data.length; i++) {
+      
+      let res = await File.getImg(data[i].url);
+      var im = new Image();
+      im.src = res.objectUrl;
+      // console.log(im.width)
+      //En este lugar crea la estructura con la que va a trabajar
+      // en los componentes
+      let img = {
+        src:res.objectUrl, 
+        width: im.width, 
+        height: im.height,
+        name:data[i].name,
+        modified:data[i].modified
+      }
+      arr.push(img)
+    }
+    return arr
+  }) 
+  .then(arr => photos = arr)
+  
+  console.log('photos: ',photos)
   return photos;
 }
 

@@ -42,7 +42,7 @@ class File{
         const opt = {
             method:'GET',
             url:url,
-            responseType: 'blob',
+            // responseType: 'blob',
             headers:{
                 'Content-Type':'application/json',
                 'Authorization':`Bearer ${user.access_token}`,
@@ -52,21 +52,16 @@ class File{
             axios(opt)
             .then(res => {
                 var objectUrl = `data:image/png;base64,${res.data}`;
+                // var url = URL.createObjectURL(objectUrl);
                 resolve({objectUrl});
             })
             .catch(err => reject(err)); 
         })
     }
 
-    getImg(url){
-        const blob = this.fetchImg(url)
-        .then(objectUrl => {
-            
-            return objectUrl
-        })
-        .catch(err => console.log(err));
-        
-        return blob
+    async getImg(url){
+        let img = await this.fetchImg(url);
+        return img
         
     }
     async upload(file,path){
