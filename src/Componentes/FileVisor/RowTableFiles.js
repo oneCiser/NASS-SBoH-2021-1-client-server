@@ -166,9 +166,12 @@ export default function RowTableFiles(props){
                                                         <Dropdown.Item onClick={showModalRename}>
                                                             Rename
                                                         </Dropdown.Item>
-                                                        <Dropdown.Item onClick={onShareFile}>
-                                                            Share
-                                                        </Dropdown.Item>
+                                                        {   file['share'] &&
+                                                            <Dropdown.Item onClick={onShareFile}>
+                                                                Share
+                                                            </Dropdown.Item>
+                                                        }
+
                                                         <Dropdown.Item onClick={onClickDownload}>
                                                             Download
                                                         </Dropdown.Item>
@@ -213,10 +216,10 @@ export default function RowTableFiles(props){
                                 </td> 
                             );
                         }
-                        else if(title == "share"){
+                        else if(title == "share" && file[title]){
                             return(
                                 <td className="name-file-a"
-                                    key={keyId+"-"+i+"-RowTableFiles"+file['_id']}>
+                                    key={keyId+"-"+i+"-RowTableFiles"+file['_id']} onClick={onShareFile}>
                                     {
                                         ifFolderShare(file) > 0 ? "Shared" : "Private"
                                     }

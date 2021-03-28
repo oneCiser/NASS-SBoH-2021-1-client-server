@@ -198,6 +198,62 @@ class File{
                 opt
             )  
     }
+
+    async getUserToShare(){
+        const user = Auth.getUser();
+        const opt = {
+            method:'GET',
+            url:`${this.URL}/users` ,
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${user.access_token}`
+            }
+        }
+        
+           return axios(
+                opt
+            )   
+    }
+
+    async shareFile(username, id_file, write){
+        const user = Auth.getUser();
+        const opt = {
+            method:'POST',
+            url:`${this.URL}share` ,
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${user.access_token}`
+            },
+            data:{
+                username,
+                id_file,
+                write
+            }
+        }
+        
+           return axios(
+                opt
+            )  
+    }
+    async unShareFile(username, id_file){
+        const user = Auth.getUser();
+        const opt = {
+            method:'PUT',
+            url:`${this.URL}share` ,
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${user.access_token}`
+            },
+            data:{
+                username,
+                id_file
+            }
+        }
+        
+           return axios(
+                opt
+            )  
+    }
 }
 
 export default new File();

@@ -16,6 +16,7 @@ import Path from './Path';
 export default function FileVisor(props){
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
     const [directory, setDirectory] = useState(null);
+    const [usersToShare, setUsersToShare] = useState(null);
     
     useEffect(() => {
         reload()
@@ -32,7 +33,11 @@ export default function FileVisor(props){
         })
         .catch((error) => {
             console.log(error);
-        })
+        });
+        File.getUserToShare()
+        .then(res => {
+            setUsersToShare(res.data)
+        });
     }
 
 ;
@@ -172,7 +177,24 @@ export default function FileVisor(props){
         tmp[tmp.length-1] = currentFolder;
         setDirectory(tmp)
     }
-    
+    let updateShare = (index, file, remove) => {
+        var tmp = [...directory];
+        var currentFolder = {...tmp[tmp.length-1]}; 
+        currentFolder.children[index] = file
+        tmp[tmp.length-1] = currentFolder;
+        if(remove.length > 0){
+            remove.forEach(item => {
+                File.unShareFile(item, file._id);
+            })
+        }
+        if(file.share.length > 0){
+            file.share.forEach(item => {
+                console.log(item.user_id, file._id, item.write)
+                File.shareFile(item.user_id, file._id, item.write);
+            })
+        }
+        setDirectory(tmp)
+    }
     // const [p, setP] =useState(null)
     // var im = new Image();
     // im.onload = function() {
@@ -199,6 +221,8 @@ export default function FileVisor(props){
                     
                     <TableFiles 
                         deleteFile={deleteFile}
+                        usersToShare={usersToShare}
+                        updateShare={updateShare}
                         renameFile={renameFile}
                         onClick={onClick}
                         downloadFile={downloadFile}

@@ -9,6 +9,8 @@ import BodyTableFiles from './BodyTableFiles';
 export default function TableFiles(props){
     const {
         deleteFile,
+        usersToShare,
+        updateShare,
         renameFile,
         downloadFile,
         titles,
@@ -22,8 +24,10 @@ export default function TableFiles(props){
                 <Table >
                     <HeadTableFiles titles={titles}/>
                     <BodyTableFiles
-                        onClick={onClick} 
+                        onClick={onClick}
+                        usersToShare={usersToShare}
                         renameFile={renameFile}
+                        updateShare={updateShare}
                         deleteFile={deleteFile}
                         downloadFile={downloadFile}
                         titles={titles} 
