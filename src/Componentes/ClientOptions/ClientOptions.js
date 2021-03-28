@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './ClientOptions.css'
+import './ClientOptions.css';
+// import Gallerys from '../Gallery';
 import * as Icon from 'react-bootstrap-icons';
 import {
     Tab, 
@@ -60,7 +61,7 @@ export default function ClientOptions(){
                             
                         </Tab.Pane>
                         <Tab.Pane eventKey="photos">
-                        2
+                            {/* <Gallerys/> */}
                         </Tab.Pane>
                         <Tab.Pane eventKey="videos">
                             ssss
