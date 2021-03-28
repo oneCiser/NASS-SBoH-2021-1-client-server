@@ -11,10 +11,15 @@ import {
 } from 'react-bootstrap';
 export default function NavFiles(props){
     const {
-        onNewFolderClick
+        onNewFolderClick,
+        size,
+        onSyncClick,
+        newFile
     } = props;
     const [showNewFolder, setShowNewFolder] = useState(false);
+    const [showNewFile, setShowNewFile] = useState(false);
     const folderName = useRef(null);
+    const newFileUp = useRef(null);
 
     let showCreateFolder = () => {
         setShowNewFolder(!showNewFolder)
@@ -29,9 +34,16 @@ export default function NavFiles(props){
         }
         showCreateFolder()
     }
-    const {
-        size,
-        onSyncClick} = props;
+
+    let showCreateFile = () => {
+        setShowNewFile(!showNewFile)
+    }
+    let handleCreateFile = () => {
+        
+        showCreateFile();
+        newFile(newFileUp.current.files[0])
+    }
+    
     return(
         <>
             <Navbar bg="light" expand="lg" style={{ position: "sticky", top: 0, }}>
@@ -40,7 +52,7 @@ export default function NavFiles(props){
                         <Icon.FolderPlus size={25}/>
                         Folder
                     </Button>{' '}
-                    <Button variant="outline-primary">
+                    <Button variant="outline-primary" onClick={showCreateFile}>
                         <Icon.FileEarmarkArrowUp size={25}/>
                         Upload
                     </Button>{' '}
@@ -52,7 +64,9 @@ export default function NavFiles(props){
                 <Nav className="mr-auto">
                 
                 </Nav>
-                <Navbar.Brand>{(100*size.size/size.maxisze).toFixed(1)}/100%</Navbar.Brand>
+                <Navbar.Brand>{(100*size.size/size.maxsize).toFixed(1)}% in use</Navbar.Brand>
+                
+                
 
                 
             </Navbar>
@@ -78,6 +92,30 @@ export default function NavFiles(props){
                             Cerrar
                         </Button>
                     <Button variant="primary" onClick={handleCreateFolder}>
+                        Aceptar
+                    </Button>
+                </Modal.Footer>
+                
+            </Modal>
+            <Modal show={showNewFile} onHide={showCreateFile}>
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        <Icon.FileEarmarkCheck size={25}/> {' '}
+                        New file
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group>
+                        <Form.File id="file" label="Selec one file to upload" ref={newFileUp}/>
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={showCreateFile}>
+                            Cerrar
+                        </Button>
+                    <Button variant="primary" onClick={handleCreateFile}>
                         Aceptar
                     </Button>
                 </Modal.Footer>
