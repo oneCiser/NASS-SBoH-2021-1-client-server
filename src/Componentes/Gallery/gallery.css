@@ -1,8 +1,8 @@
 .view-images {
     margin-top: 10px;
     overflow-y: auto;
-    height: 85vh;
-    max-height: 85vh;
+    height: 75vh;
+    max-height: 75vh;
 }
 img {
     max-width:100%;
