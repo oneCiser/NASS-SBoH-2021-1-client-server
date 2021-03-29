@@ -1,9 +1,16 @@
 import React, { useState, useCallback,useEffect } from "react";
 // import Gallery from "react-photo-gallery";
 // import Carousel, { Modal, ModalGateway } from "react-images";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './gallery.css'
 import  processImages  from "./photos";
 import File from '../../Request/files';
 import { PhoneFill } from "react-bootstrap-icons";
+import {
+  Container,
+  Row,
+  Col
+} from 'react-bootstrap';
 const url = "http://nass2.bucaramanga.upb.edu.co/api/file/img/605bfc1e2359e0059d009872"
 
 function Gallerys() {
@@ -12,15 +19,9 @@ function Gallerys() {
   const [photos, setPhotos] = useState(null);
   
 
-  const openLightbox = useCallback((event, { photo, index }) => {
-    setCurrentImage(index);
-    setViewerIsOpen(true);
-  }, []);
+ 
 
-  const closeLightbox = () => {
-    setCurrentImage(0);
-    setViewerIsOpen(false);
-  };
+ 
   useEffect(() => {
     processImages()
     .then(array => setPhotos(array))
@@ -29,18 +30,34 @@ function Gallerys() {
   },[]);
   // console.log(photos)
   return (
-    <div>
-      <a>Hola</a>
+    <div className="view-images">
+      <Container >
+        <Row>
+        { photos &&
+          photos.map((image,i) => {
+            console.log(image)
+            return (
+              
+                <Col className="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                  <img 
+                    title={image.name}
+                    className="w-100 shadow-1-strong rounded mb-4" 
+                    key={i+'-img'} 
+                    src={image.src} />
+                </Col>
+                
+              
+              
+            )
+        })
+        }
+        </Row>
+      </Container>
       {/* {
         photos && 
         <img src={photos.objectUrl} width="100px" height="100px"/>
       } */}
-      { photos &&
-        photos.map((image,i) => {
-          console.log(image)
-          return <img title={image.name} key={i+'-img'} src={image.src} width="100px" height="100px"/>
-      })
-      }
+ 
       {/* <Gallery photos={photos} onClick={openLightbox} />
       <ModalGateway>
         {viewerIsOpen ? (
