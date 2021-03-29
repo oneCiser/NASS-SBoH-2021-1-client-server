@@ -15,11 +15,12 @@ async function processImages(){
       //En este lugar crea la estructura con la que va a trabajar
       // en los componentes
       let img = {
-        src:res.objectUrl, 
+        url:res.objectUrl, 
         // width: im.width, 
         // height: im.height,
-        name:data[i].name,
-        modified:data[i].modified
+        title:data[i].name,
+        modified:data[i].modified,
+        //startIndex:i
       }
       arr.push(img)
     }
