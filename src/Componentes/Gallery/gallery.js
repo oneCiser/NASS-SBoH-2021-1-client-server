@@ -51,8 +51,8 @@ function Gallerys() {
     function compareWeigthAsc(a,b){
         let imA = new Image();
         let imB = new Image();
-        imA.src = a.src;
-        imB.src = b.src;
+        imA.src = a.url;
+        imB.src = b.url;
         const [hA,wA,hB,wB] = [imA.height, imA.width, imB.height, imB.width]
         let weigthA = ((hA*wA)*3)/(1024**2);
         let weigthB = ((hB*wB)*3)/(1024**2);
@@ -62,8 +62,8 @@ function Gallerys() {
     function compareWeigthDesc(a,b){
         let imA = new Image();
         let imB = new Image();
-        imA.src = a.src;
-        imB.src = b.src;
+        imA.src = a.url;
+        imB.src = b.url;
         const [hA,wA,hB,wB] = [imA.height, imA.width, imB.height, imB.width]
         let weigthA = ((hA*wA)*3)/(1024**2);
         let weigthB = ((hB*wB)*3)/(1024**2);
