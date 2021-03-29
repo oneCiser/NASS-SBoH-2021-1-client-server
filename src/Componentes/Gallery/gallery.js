@@ -3,11 +3,14 @@ import React, { useState, useCallback,useEffect } from "react";
 // import Carousel, { Modal, ModalGateway } from "react-images";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './gallery.css'
-import SimpleReactLightbox from "simple-react-lightbox";
+import Lightbox from "react-awesome-lightbox";
+import "react-awesome-lightbox/build/style.css";
 import  processImages  from "./photos";
 import File from '../../Request/files';
 import { PhoneFill } from "react-bootstrap-icons";
+import * as Icon from 'react-bootstrap-icons';
 import {
+    Button,
     NavDropdown,
     Navbar,
     Nav,
@@ -20,8 +23,8 @@ const url = "http://nass2.bucaramanga.upb.edu.co/api/file/img/605bfc1e2359e0059d
 function Gallerys() {
 
   const [photos, setPhotos] = useState(null);
-  
-
+  const [viewerIsOpen, setViewerIsOpen] = useState(false);
+  const [currentImage, setCurrentImage] = useState(0);
  
 
  
@@ -46,45 +49,45 @@ function Gallerys() {
 
     }
     function compareWeigthAsc(a,b){
-        var imA = new Image();
-        var imB = new Image();
+        let imA = new Image();
+        let imB = new Image();
         imA.src = a.src;
         imB.src = b.src;
         const [hA,wA,hB,wB] = [imA.height, imA.width, imB.height, imB.width]
-        var weigthA = ((hA*wA)*3)/(1024**2);
-        var weigthB = ((hB*wB)*3)/(1024**2);
+        let weigthA = ((hA*wA)*3)/(1024**2);
+        let weigthB = ((hB*wB)*3)/(1024**2);
         //console.log(weigthA ,'mb vs ',weigthB,'mb')
         return weigthA-weigthB;
     }
     function compareWeigthDesc(a,b){
-        var imA = new Image();
-        var imB = new Image();
+        let imA = new Image();
+        let imB = new Image();
         imA.src = a.src;
         imB.src = b.src;
         const [hA,wA,hB,wB] = [imA.height, imA.width, imB.height, imB.width]
-        var weigthA = ((hA*wA)*3)/(1024**2);
-        var weigthB = ((hB*wB)*3)/(1024**2);
+        let weigthA = ((hA*wA)*3)/(1024**2);
+        let weigthB = ((hB*wB)*3)/(1024**2);
         //console.log(weigthA ,'mb vs ',weigthB,'mb')
         return weigthB-weigthA;
     }
 
 
     function compareAsc( a, b ) {
-        //console.log(a.name ,'vs',b.name)
-        if ( a.name < b.name ){
+        //console.log(a.title ,'vs',b.title)
+        if ( a.title < b.title ){
         return -1;
         }
-        if ( a.name > b.name ){
+        if ( a.title > b.title ){
         return 1;
         }
         return 0;
     }
     function compareDesc( a, b ) {
-        //console.log(a.name ,'vs',b.name)
-        if ( a.name < b.name ){
+        //console.log(a.title ,'vs',b.title)
+        if (  a.title < b.title ){
         return 1;
         }
-        if ( a.name > b.name ){
+        if ( a.title > b.title ){
         return -1;
         }
         return 0;
@@ -92,57 +95,98 @@ function Gallerys() {
 
 
     let sortbyNameAsc = () =>{
+      try{
         let tmpPhostos = [...photos]
+        console.log(tmpPhostos)
         //console.log('Antes: ', tmpPhostos)
-        tmpPhostos = tmpPhostos.sort(compareAsc)
+        tmpPhostos.sort(compareAsc)
         //console.log('Despues: ', tmpPhostos)
         setPhotos(tmpPhostos);
-              
+      }catch(error){
+        console.error(error)
+      }
     }
     let sortbyNameDesc = () =>{
+      try{
         let tmpPhostos = [...photos] 
         tmpPhostos = tmpPhostos.sort(compareDesc)    
-        setPhotos(tmpPhostos);       
+        setPhotos(tmpPhostos);
+      }catch(error){
+        console.error(error)
+      }       
     }
 
     let sortbyDateAsc = () =>{
+      try{
         let tmpPhostos = [...photos]
         tmpPhostos = tmpPhostos.sort(compareDateAsc)  
-        setPhotos(tmpPhostos);              
+        setPhotos(tmpPhostos);
+      }catch(error){
+        console.error(error)
+      }              
     }
     let sortbyDateDesc = () =>{
+      try{
         let tmpPhostos = [...photos]   
         tmpPhostos = tmpPhostos.sort(compareDateDesc) 
         setPhotos(tmpPhostos)
+      }catch(error){
+        console.error(error)
+      }
     }
     let sortbyweightAsc = () =>{
+      try{
         let tmpPhostos = [...photos]  
         tmpPhostos = tmpPhostos.sort(compareWeigthAsc) 
         setPhotos(tmpPhostos)
+      }catch(error){
+        console.error(error)
+      }
     }
     let sortbyweightDesc = () =>{
+      try{
         let tmpPhostos = [...photos]  
         tmpPhostos = tmpPhostos.sort(compareWeigthDesc) 
         setPhotos(tmpPhostos)
+      }catch(error){
+        console.error(error)
+      }
     }
+
+    let openLightbox = ( e ) => {
+      console.log(e.target)
+      setCurrentImage(parseInt( e.target.name));
+      setViewerIsOpen(true);
+    };
+  
+    const closeLightbox = () => {
+      setCurrentImage(0);
+      setViewerIsOpen(false);
+    };
   return (
-    <div className="view-images">
-      <Container>
-            <Navbar  bg="light" expand="lg"  variant="light">
+    <>
+    <Navbar  bg="light" expand="lg"  variant="light">
             <Nav className="mr-auto">
-            <NavDropdown title="Sort By ✔" id="collasible-nav-dropdown" >
-                <NavDropdown.Item onClick={sortbyNameAsc}>name asc</NavDropdown.Item>
-                <NavDropdown.Item onClick={sortbyNameDesc}>name desc</NavDropdown.Item>
-                <NavDropdown.Item onClick={sortbyDateAsc}> date asc</NavDropdown.Item>
-                <NavDropdown.Item onClick={sortbyDateDesc}>date desc</NavDropdown.Item>
-                <NavDropdown.Item onClick={sortbyweightAsc}>weight asc</NavDropdown.Item>
-                <NavDropdown.Item onClick={sortbyweightDesc}>weight desc</NavDropdown.Item>
+            <NavDropdown 
+            title={
+              <Button variant="outline-dark">
+                Sort {''}
+              <Icon.Funnel size={20}/>
+              </Button>
+            } id="collasible-nav-dropdown" >
+                <NavDropdown.Item onClick={sortbyNameAsc}>By name <Icon.SortAlphaUp size={23}/></NavDropdown.Item>
+                <NavDropdown.Item onClick={sortbyNameDesc}>By name <Icon.SortAlphaDown size={23}/></NavDropdown.Item>
+                <NavDropdown.Item onClick={sortbyDateAsc}> By date <Icon.SortUp size={23}/></NavDropdown.Item>
+                <NavDropdown.Item onClick={sortbyDateDesc}>By date <Icon.SortDown size={23}/></NavDropdown.Item>
+                <NavDropdown.Item onClick={sortbyweightAsc}>By weight <Icon.SortNumericUp size={23}/></NavDropdown.Item>
+                <NavDropdown.Item onClick={sortbyweightDesc}>By weight<Icon.SortAlphaDown size={23}/></NavDropdown.Item>
             </NavDropdown> 
             </Nav>
             <Navbar.Brand href="#">Gallery</Navbar.Brand>
             </Navbar>
+    
+    <div className="view-images">
             
-    </Container>
       
       <Container >
         <Row>
@@ -151,25 +195,35 @@ function Gallerys() {
             //console.log(image)
             return (
                 
-                <Col className="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                <Col className="col-lg-4 col-md-12 mb-4 mb-lg-0" key={"container"+i}>
                   <img 
-                    title={image.name}
+                    title={image.title}
+                    name={i}
                     className="w-100 shadow-1-strong rounded mb-4" 
                     key={i+'-img'} 
-                    src={image.src} 
+                    src={image.url} 
                     alt=""
+                    onClick = {(e) => openLightbox(e)}
                     />
+                    
+                    
                 </Col>
-                
-              
-              
+
             )
         })
         }
+        
         </Row>
+        
       </Container>
+      {
+        photos && viewerIsOpen &&<Lightbox images={photos} startIndex={currentImage} onClose={closeLightbox}></Lightbox>
+      }
+      
+
       
     </div>
+    </>
   );
 }
 export default Gallerys;
