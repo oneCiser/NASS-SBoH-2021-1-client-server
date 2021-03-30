@@ -1,4 +1,4 @@
-import React, { useState, useCallback,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 // import Gallery from "react-photo-gallery";
 // import Carousel, { Modal, ModalGateway } from "react-images";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -152,6 +152,10 @@ function Gallerys() {
         console.error(error)
       }
     }
+    let syncImages = () =>{
+      processImages()
+      .then(array => setPhotos(array))
+    }
 
     let openLightbox = ( e ) => {
       console.log(e.target)
@@ -159,7 +163,7 @@ function Gallerys() {
       setViewerIsOpen(true);
     };
   
-    const closeLightbox = () => {
+    let closeLightbox = () => {
       setCurrentImage(0);
       setViewerIsOpen(false);
     };
@@ -181,6 +185,10 @@ function Gallerys() {
                 <NavDropdown.Item onClick={sortbyweightAsc}>By weight <Icon.SortNumericUp size={23}/></NavDropdown.Item>
                 <NavDropdown.Item onClick={sortbyweightDesc}>By weight<Icon.SortAlphaDown size={23}/></NavDropdown.Item>
             </NavDropdown> 
+            <Button variant="outline-dark" onClick={syncImages}>
+              <Icon.ArrowClockwise size={25}/>
+                Sync
+            </Button>{' '}
             </Nav>
             <Navbar.Brand href="#">Gallery</Navbar.Brand>
             </Navbar>
