@@ -39,7 +39,6 @@ export default function NavFiles(props){
         setShowNewFile(!showNewFile)
     }
     let handleCreateFile = () => {
-        
         showCreateFile();
         newFile(newFileUp.current.files[0])
     }
@@ -107,7 +106,7 @@ export default function NavFiles(props){
                 <Modal.Body>
                     <Form>
                         <Form.Group>
-                        <Form.File id="file" label="Selec one file to upload" ref={newFileUp}/>
+                            <Form.File id="file" label="Selec one file to upload" ref={newFileUp}/>
                         </Form.Group>
                     </Form>
                 </Modal.Body>
