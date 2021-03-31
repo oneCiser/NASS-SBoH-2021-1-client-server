@@ -12,6 +12,7 @@ import * as Icon from 'react-bootstrap-icons';
 import {
     Button,
     NavDropdown,
+    Form,
     Navbar,
     Nav,
     Container,
@@ -170,7 +171,7 @@ function Gallerys() {
   return (
     <>
     <Navbar  bg="light" expand="lg"  variant="light">
-            <Nav className="mr-auto">
+            <Nav>
             <NavDropdown 
             title={
               <Button variant="outline-dark">
@@ -185,10 +186,16 @@ function Gallerys() {
                 <NavDropdown.Item onClick={sortbyweightAsc}>By weight <Icon.SortNumericUp size={23}/></NavDropdown.Item>
                 <NavDropdown.Item onClick={sortbyweightDesc}>By weight<Icon.SortAlphaDown size={23}/></NavDropdown.Item>
             </NavDropdown> 
+
+            </Nav>
+            <Form>
             <Button variant="outline-dark" onClick={syncImages}>
               <Icon.ArrowClockwise size={25}/>
                 Sync
             </Button>{' '}
+            </Form>
+            <Nav className="mr-auto">
+                
             </Nav>
             <Navbar.Brand href="#">Gallery</Navbar.Brand>
             </Navbar>
