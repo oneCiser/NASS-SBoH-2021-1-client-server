@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 // import Gallery from "react-photo-gallery";
 // import Carousel, { Modal, ModalGateway } from "react-images";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -23,15 +23,20 @@ const url = "http://nass2.bucaramanga.upb.edu.co/api/file/img/605bfc1e2359e0059d
 
 function Gallerys() {
 
-  const [photos, setPhotos] = useState(null);
+  const [photos, setPhotos] = useState([]);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
- 
+  const [loaded, setLoaded] = useState(0);
+  
 
  
   useEffect(() => {
-    processImages()
-    .then(array => setPhotos(array))
+    if(photos.length == 0){
+      syncImages()
+    }
+    // processImages()
+    // .then(array => setPhotos(array))
+    
     // File.getImg(url)
     // .then(img => setPhotos(img))
   },[]);
@@ -153,13 +158,19 @@ function Gallerys() {
         console.error(error)
       }
     }
+    
     let syncImages = () =>{
-      processImages()
-      .then(array => setPhotos(array))
+      const start = Date.now()/1000;
+      processImages(setLoaded)
+      .then(array => {
+        const end = Date.now()/1000;
+        console.log('Time: ',end - start)
+        setPhotos(array)
+      });
+
     }
 
     let openLightbox = ( e ) => {
-      console.log(e.target)
       setCurrentImage(parseInt( e.target.name));
       setViewerIsOpen(true);
     };
@@ -211,16 +222,33 @@ function Gallerys() {
             return (
                 
                 <Col className="col-lg-4 col-md-12 mb-4 mb-lg-0" key={"container"+i}>
-                  <img 
-                    title={image.title}
-                    name={i}
-                    className="w-100 shadow-1-strong rounded mb-4" 
-                    key={i+'-img'} 
-                    src={image.url} 
-                    alt=""
-                    onClick = {(e) => openLightbox(e)}
-                    />
+                  {
+                    image.load ? (
+                      <img
+                      loading="lazy"
+                      title={image.title}
+                      name={i}
+                      className="w-100 shadow-1-strong rounded mb-4" 
+                      key={i+'-img'} 
+                      src={image.url} 
+                      alt=""
+                      onClick = {(e) => openLightbox(e)}
+                      />  
+                    ) : 
+                    (
+                      <img
+                      loading="lazy"
+                      title={image.title}
+                      name={i}
+                      className="w-100 shadow-1-strong rounded mb-4" 
+                      key={i+'-img'} 
+                      src="https://i.stack.imgur.com/ATB3o.gif" 
+                      alt=""/> 
+                    )
+                  }
                     
+                  
+  
                     
                 </Col>
 
@@ -232,7 +260,7 @@ function Gallerys() {
         
       </Container>
       {
-        photos && viewerIsOpen &&<Lightbox images={photos} startIndex={currentImage} onClose={closeLightbox}></Lightbox>
+        photos && viewerIsOpen && <Lightbox images={photos} startIndex={currentImage} onClose={closeLightbox}></Lightbox>
       }
       
 

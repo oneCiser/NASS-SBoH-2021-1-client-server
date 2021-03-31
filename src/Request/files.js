@@ -64,6 +64,22 @@ class File{
         return img
         
     }
+    async loadImg(url){
+        const user = Auth.getUser();
+        const opt = {
+            method:'GET',
+            url:url,
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':`Bearer ${user.access_token}`,
+            },
+        }
+        const img = (await axios(opt)).data;
+        return new Promise((resolve, reject) => {
+            const dataImg = `data:image/png;base64,${img}`;
+            resolve(dataImg)
+          });
+    }
     async upload(file,path){
         const formData = new FormData();
         formData.append('file',file,file.name);
