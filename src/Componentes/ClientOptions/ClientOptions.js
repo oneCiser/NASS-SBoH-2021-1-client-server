@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-
+import ReactPlayer from 'react-player'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ClientOptions.css';
 import Gallerys from '../Gallery';
@@ -64,10 +64,14 @@ export default function ClientOptions(){
                             <Gallerys/>
                         </Tab.Pane>
                         <Tab.Pane eventKey="videos">
-                            ssss
+                        Use este componente de video, ya que permite consultar mediante stream, no como la mierda de html5 que no lo hace
+                        {/* <ReactPlayer controls url='http://localhost:8080/api/file/loadvideo/6065664bebc895373013547f/604305a999536a12341a54cd' /> */}
+                        <ReactPlayer controls url='http://nass2.bucaramanga.upb.edu.co/api/file/loadvideo/6064e5cc5f796b412bf7d8fa/604305a999536a12341a54cd' /> 
+                        {/* <ReactPlayer controls url='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' /> */}
+                        
                         </Tab.Pane>
                         <Tab.Pane eventKey="shared">
-                            ssss
+
                         </Tab.Pane>
                     </Tab.Content>
                     </Col>
