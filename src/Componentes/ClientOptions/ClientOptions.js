@@ -12,7 +12,7 @@ import {
 } from 'react-bootstrap';
 
 import FileVisor from '../FileVisor';
-
+import VideoVisor  from '../VideoVisor';
 
 export default function ClientOptions(){
 
@@ -64,7 +64,11 @@ export default function ClientOptions(){
                             <Gallerys/>
                         </Tab.Pane>
                         <Tab.Pane eventKey="videos">
-                        Use este componente de video, ya que permite consultar mediante stream, no como la mierda de html5 que no lo hace
+                            <VideoVisor/>
+                            {/* <video width="100%" height="100%" controls>
+                                <source src="http://nass3.bucaramanga.upb.edu.co/api/file/loadvideo/6064e5cc5f796b412bf7d8fa/604305a999536a12341a54cd" />
+                            </video> */}
+                        
                         {/* <ReactPlayer controls url='http://localhost:8080/api/file/loadvideo/6065664bebc895373013547f/604305a999536a12341a54cd' /> */}
                         <ReactPlayer controls url='http://nass2.bucaramanga.upb.edu.co/api/file/loadvideo/6064e5cc5f796b412bf7d8fa/604305a999536a12341a54cd' /> 
                         {/* <ReactPlayer controls url='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' /> */}
