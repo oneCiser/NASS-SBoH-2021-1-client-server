@@ -103,7 +103,8 @@ export default function FileVisor(props){
         if(file._id){
             File.download(file._id)
             .then(res => {
-                FileDownload(res.data, file.name)
+                const realName = file.name.split('.')
+                FileDownload(res.data, `${realName[0]}.zip`)
             })
             .catch(error => console.log(error));
         }
@@ -116,6 +117,7 @@ export default function FileVisor(props){
             const url = path.join('/');
             File.donwloadFolder(url)
             .then(res => {
+                
                 FileDownload(res.data, `${file.name}.zip`)
             })
         }
