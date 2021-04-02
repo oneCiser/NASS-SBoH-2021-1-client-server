@@ -15,6 +15,20 @@ class File{
                 'Authorization':`Bearer ${user.access_token}`
             },
         }
+           return axios(
+                opt
+            )
+    }
+    async getVideos(){
+        const user = Auth.getUser();
+        const opt = {
+            method:'GET',
+            url:this.URL + 'videos',
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':`Bearer ${user.access_token}`
+            },
+        }
         
            return axios(
                 opt

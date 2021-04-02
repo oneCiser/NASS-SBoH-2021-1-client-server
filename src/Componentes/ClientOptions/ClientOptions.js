@@ -12,7 +12,7 @@ import {
 } from 'react-bootstrap';
 
 import FileVisor from '../FileVisor';
-
+import VideoVisor  from '../VideoVisor';
 
 export default function ClientOptions(){
 
@@ -64,7 +64,10 @@ export default function ClientOptions(){
                             <Gallerys/>
                         </Tab.Pane>
                         <Tab.Pane eventKey="videos">
-                            ssss
+                            <VideoVisor/>
+                            {/* <video width="100%" height="100%" controls>
+                                <source src="http://nass3.bucaramanga.upb.edu.co/api/file/loadvideo/6064e5cc5f796b412bf7d8fa/604305a999536a12341a54cd" />
+                            </video> */}
                         </Tab.Pane>
                         <Tab.Pane eventKey="shared">
                             ssss
