@@ -1,5 +1,5 @@
 import React, {useRef,useEffect} from 'react';
-
+import './Clip.css'
 
 export default function Clip({ url }) {
     const videoRef = useRef();
@@ -13,7 +13,7 @@ export default function Clip({ url }) {
     }, [url]);
   
     return (
-      <video ref={videoRef}>
+      <video className="vide-clip" ref={videoRef} height="50%" width="100%"  controls>
         <source src={url || ""} />
       </video>
     );

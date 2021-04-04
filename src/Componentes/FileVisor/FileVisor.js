@@ -209,7 +209,7 @@ export default function FileVisor(props){
     return(
         <>
             
-            {   user.size &&
+            {   user.maxsize &&
                 <NavFiles 
                     size={{size:user.size,maxsize:user.maxsize}}
                     newFile={newFile}

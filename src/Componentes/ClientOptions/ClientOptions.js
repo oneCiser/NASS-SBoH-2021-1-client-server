@@ -13,6 +13,7 @@ import {
 
 import FileVisor from '../FileVisor';
 import VideoVisor  from '../VideoVisor';
+import SharedVisor  from '../SharedVisor';
 
 export default function ClientOptions(){
 
@@ -65,17 +66,9 @@ export default function ClientOptions(){
                         </Tab.Pane>
                         <Tab.Pane eventKey="videos">
                             <VideoVisor/>
-                            {/* <video width="100%" height="100%" controls>
-                                <source src="http://nass3.bucaramanga.upb.edu.co/api/file/loadvideo/6064e5cc5f796b412bf7d8fa/604305a999536a12341a54cd" />
-                            </video> */}
-                        
-                        {/* <ReactPlayer controls url='http://localhost:8080/api/file/loadvideo/6065664bebc895373013547f/604305a999536a12341a54cd' /> */}
-                        <ReactPlayer controls url='http://nass2.bucaramanga.upb.edu.co/api/file/loadvideo/6064e5cc5f796b412bf7d8fa/604305a999536a12341a54cd' /> 
-                        {/* <ReactPlayer controls url='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' /> */}
-                        
                         </Tab.Pane>
                         <Tab.Pane eventKey="shared">
-
+                            <SharedVisor/>
                         </Tab.Pane>
                     </Tab.Content>
                     </Col>

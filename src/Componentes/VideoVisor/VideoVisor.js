@@ -12,7 +12,8 @@ export default function VideoVisor(props){
     
     let showRepro = (url) =>{
         console.log('funciona')
-        setActualVideo(url)
+        let tpmURL = url.replace('http://nass2.bucaramanga.upb.edu.co/','http://localhost:8080/');
+        setActualVideo(tpmURL)
     }
     let reload = ()=> {
         File.getVideos()
@@ -30,15 +31,17 @@ export default function VideoVisor(props){
     return(
         <>
         {
+            videos &&  <Clip url={actualVideo}/>
+        }
+        <div></div>  
+        {
            videos && <TableVideo
                 videos={videos}
                 titles={['name','modified']}
                 onClick={showRepro}
             />
         }
-        {
-            videos && actualVideo && <Clip url={actualVideo}/>
-        }    
+ 
         </>
     );
 }
