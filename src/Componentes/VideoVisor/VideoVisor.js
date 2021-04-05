@@ -12,8 +12,7 @@ export default function VideoVisor(props){
     
     let showRepro = (url) =>{
         console.log('funciona')
-        let tpmURL = url.replace('http://nass2.bucaramanga.upb.edu.co/','http://localhost:8080/');
-        setActualVideo(tpmURL)
+        setActualVideo(url)
     }
     let reload = ()=> {
         File.getVideos()
