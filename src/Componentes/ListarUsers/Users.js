@@ -1,14 +1,13 @@
 import Admin from '../../Request/admin';
 
 
-async function usersProcess(){
+ function usersProcess(){
     var user=[];
-    await Admin.getUser()
-    .then((res)=>{
-        let arr = [];
-        console.log(res);
-        
-    })}
+    return Admin.getUser()
+    .then(res=>{ return res.data.users})     
+          
+    }
+    
   /*  .then(async (data)=>{
 
         
@@ -32,4 +31,4 @@ async function usersProcess(){
       return user;
 
 }*/ 
-export default usersProcess;
+export  const ListarUsers =usersProcess();

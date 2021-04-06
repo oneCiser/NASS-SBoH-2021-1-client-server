@@ -1,13 +1,14 @@
 import React from 'react';
-import logo from '../logo.svg';
-import '../App.css';
+//import logo from '../logo.svg';
+import '../../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter } from 'reactstrap';
-import usersProcess from './Users';
+import {ListarUsers} from './Users';
 
 
-const data = usersProcess();
-class TablaUser extends React.Component {
+const data = ListarUsers;
+console.log(data);
+export class TablaUser extends React.Component {
 
   constructor() {
     super();
@@ -19,7 +20,7 @@ class TablaUser extends React.Component {
         modalActualizar: false,
         modalInsertar: false,
         form: {
-            id: "",
+          _id: "",
             username: "",
             email: "",
             name: "",
@@ -100,10 +101,20 @@ class TablaUser extends React.Component {
       };
     
       render() {
-        const tabladinamica = this.state.data.map(dato =>
-          <RegistroFila dato = {dato}
-          mostrarModalActualizar = {this.mostrarModalActualizar}
-          eliminar = {this.eliminar}/>);
+        
+        let tabladinamica;
+      
+         this.state.data.then(res=>{
+           tabladinamica=res.map(dato =>{
+            <RegistroFila dato = {dato}
+            mostrarModalActualizar = {this.mostrarModalActualizar}
+            eliminar = {this.eliminar}/>
+            
+            } );
+        })
+        
+       
+        setTimeout(console.log, 2000, tabladinamica )
         
         return (
           <>
@@ -318,14 +329,15 @@ class TablaUser extends React.Component {
         );
       }
     }
-    class RegistroFila extends React.Component {
+    
+   export class RegistroFila extends React.Component {
 
 
       render() {
-          const dato = this.props.dato;
+         const dato = this.props.dato;
           return (
-            <tr key={dato.id}>
-            <td>{dato.id}</td>
+            <tr key={dato._id}>
+            <td>{dato._id}</td>
             <td>{dato.username}</td>
             <td>{dato.email}</td>
             <td>{dato.name}</td>

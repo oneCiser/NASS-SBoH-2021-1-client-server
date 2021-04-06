@@ -8,6 +8,7 @@ class Admin{
     }
     async getUser(){
         const user = Auth.getUser();
+        
         const opt = {
             method:'GET',
             url:this.URL + 'users',
