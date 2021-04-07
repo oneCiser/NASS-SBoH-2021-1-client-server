@@ -59,10 +59,7 @@ export class TablaUser extends React.Component {
         Admin.EditUser(dato.id,dato.maxsize).then(data =>{
           arreglo.map((registro) => {
             if (dato.id == registro.id) {
-              arreglo[contador].username = dato.username;
-              arreglo[contador].email = dato.email;
-              arreglo[contador].name = dato.name;
-              arreglo[contador].type_user = dato.type_user;
+              
               arreglo[contador].maxsize = dato.maxsize;
   
             }
@@ -186,7 +183,7 @@ export class TablaUser extends React.Component {
                   />
                 </FormGroup>
                 
-                <FormGroup>
+                {/* <FormGroup>
                   <label>
                     Username: 
                   </label>
@@ -234,7 +231,7 @@ export class TablaUser extends React.Component {
                     onChange={this.handleChange}
                     value={this.state.form.type_user}
                   />
-                </FormGroup>
+                </FormGroup> */}
                 <FormGroup>
                   <label>
                     Maxsize: 
