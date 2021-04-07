@@ -12,8 +12,9 @@ export default function LayoutMenu(){
         <>
         
             <Menu user={user}/>
+        
             <TablaUser></TablaUser>
-            <ListarUsers.data.users/>
+          
             
         </>
     ); 

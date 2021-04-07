@@ -1,12 +1,15 @@
+import admin from '../../Request/admin';
 import Admin from '../../Request/admin';
 
 
  function usersProcess(){
     var user=[];
     return Admin.getUser()
-    .then(res=>{ return res.data.users})     
-          
+    .then(res=> 
+      res.data.users)    
     }
+   
+ 
     
   /*  .then(async (data)=>{
 

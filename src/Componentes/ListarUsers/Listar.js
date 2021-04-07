@@ -4,10 +4,11 @@ import '../../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter } from 'reactstrap';
 import {ListarUsers} from './Users';
+import Admin from '../../Request/admin';
 
 
-const data = ListarUsers;
-console.log(data);
+//const data = ListarUsers;
+//console.log(data);
 export class TablaUser extends React.Component {
 
   constructor() {
@@ -16,7 +17,7 @@ export class TablaUser extends React.Component {
     this.eliminar = this.eliminar.bind(this);
   }
     state = {
-        data: data,
+        data: [],
         modalActualizar: false,
         modalInsertar: false,
         form: {
@@ -54,18 +55,23 @@ export class TablaUser extends React.Component {
       editar = (dato) => {
         var contador = 0;
         var arreglo = this.state.data;
-        arreglo.map((registro) => {
-          if (dato.id == registro.id) {
-            arreglo[contador].username = dato.username;
-            arreglo[contador].email = dato.email;
-            arreglo[contador].name = dato.name;
-            arreglo[contador].type_user = dato.type_user;
-            arreglo[contador].maxsize = dato.maxsize;
+        //promesa
+        Admin.EditUser(dato.id,dato.maxsize).then(data =>{
+          arreglo.map((registro) => {
+            if (dato.id == registro.id) {
+              arreglo[contador].username = dato.username;
+              arreglo[contador].email = dato.email;
+              arreglo[contador].name = dato.name;
+              arreglo[contador].type_user = dato.type_user;
+              arreglo[contador].maxsize = dato.maxsize;
+  
+            }
+            contador++;
+          });
+          this.setState({ data: arreglo, modalActualizar: false });
 
-          }
-          contador++;
-        });
-        this.setState({ data: arreglo, modalActualizar: false });
+        })
+       
       };
     
       eliminar = (dato) => {
@@ -73,22 +79,35 @@ export class TablaUser extends React.Component {
         if (opcion == true) {
           var contador = 0;
           var arreglo = this.state.data;
-          arreglo.map((registro) => {
-            if (dato.id == registro.id) {
-              arreglo.splice(contador, 1);
-            }
-            contador++;
-          });
-          this.setState({ data: arreglo, modalActualizar: false });
+          //promesa
+          Admin.DeleteUser(dato.id).then(data => {
+            arreglo.map((registro) => {
+              if (dato.id == registro.id) {
+                arreglo.splice(contador, 1);
+              }
+              contador++;
+            });
+            this.setState({ data: arreglo, modalActualizar: false });
+
+          })
+          
         }
       };
     
       insertar= ()=>{
         var valorNuevo= {...this.state.form};
         valorNuevo.id=this.state.data.length+1;
-        var lista= this.state.data;
-        lista.push(valorNuevo);
-        this.setState({ modalInsertar: false, data: lista });
+        //promesa
+        Admin.CreateUser(valorNuevo.username,
+          valorNuevo.email,
+          valorNuevo.name,
+          valorNuevo.maxsize).then(data =>
+            {
+              var lista= this.state.data;
+              lista.push(valorNuevo);
+              this.setState({ modalInsertar: false, data: lista });
+            })
+       
       }
     
       handleChange = (e) => {
@@ -99,23 +118,30 @@ export class TablaUser extends React.Component {
           },
         });
       };
-    
+      
+      getListUser=async()=>{
+        await ListarUsers.then(
+          data=>this.setState({...this.state,data})
+        )
+      }
+      
+
+      componentDidMount(){
+        this.getListUser()
+      }
+      
       render() {
         
-        let tabladinamica;
-      
-         this.state.data.then(res=>{
-           tabladinamica=res.map(dato =>{
-            <RegistroFila dato = {dato}
-            mostrarModalActualizar = {this.mostrarModalActualizar}
-            eliminar = {this.eliminar}/>
-            
-            } );
-        })
         
+      const tabladinamica = this.state.data.map(dato =>
+          <RegistroFila dato = {dato}
+          mostrarModalActualizar = {this.mostrarModalActualizar}
+          eliminar = {this.eliminar}/>);
        
-        setTimeout(console.log, 2000, tabladinamica )
-        
+        setTimeout(console.log, 2000, tabladinamica ) 
+       /*  console.log(this.state.data,
+          "imprimeintp"
+          ) */
         return (
           <>
             <Container>
@@ -283,6 +309,18 @@ export class TablaUser extends React.Component {
                     onChange={this.handleChange}
                   />
                 
+                </FormGroup>
+
+                <FormGroup>
+                  <label>
+                    Name: 
+                  </label>
+                  <input
+                    className="form-control"
+                    name="name"
+                    type="text"
+                    onChange={this.handleChange}
+                  />
                 </FormGroup>
                
                 <FormGroup>

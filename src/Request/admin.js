@@ -20,8 +20,36 @@ class Admin{
         
         return axios(
             opt 
+            
+    
+        )
+    }
+    async CreateUser(username, email, name, type_user, maxsize){
+        const user = Auth.getUser();
+        const opt = {
+            method:'POST',
+            url:this.URL+ 'createuser',
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':`Bearer ${user.access_token}`
+
+            },
+            data:{
+                username,
+                email,
+                name,
+                type_user,
+                maxsize
+            }
+            
+        }
+        return axios(
+            opt 
+            
+    
         )
     }
 
 }
+
 export default new Admin();
