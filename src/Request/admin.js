@@ -49,6 +49,46 @@ class Admin{
     
         )
     }
+    async DeleteUser(Id){
+        const user = Auth.getUser();
+        const opt = {
+            method:'DELETE',
+            url:this.URL+ 'deleteuser/'+Id,
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':`Bearer ${user.access_token}`
+            }
+            
+            
+        }
+        return axios(
+            opt 
+            
+    
+        )
+    }
+    async EditUser(Id,maxsize){
+        const user = Auth.getUser();
+        const opt = {
+            method:'PUT',
+            url:this.URL+ 'user/'+Id,
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':`Bearer ${user.access_token}`
+            },
+            data:{
+                maxsize
+            }
+            
+            
+        }
+        return axios(
+            opt 
+            
+    
+        )
+    }
+
 
 }
 

@@ -21,7 +21,7 @@ export class TablaUser extends React.Component {
         modalActualizar: false,
         modalInsertar: false,
         form: {
-          _id: "",
+         // _id: "",
             username: "",
             email: "",
             name: "",
@@ -77,7 +77,8 @@ export class TablaUser extends React.Component {
           var contador = 0;
           var arreglo = this.state.data;
           //promesa
-          Admin.DeleteUser(dato.id).then(data => {
+          Admin.DeleteUser(dato.id)
+          .then(data => {
             arreglo.map((registro) => {
               if (dato.id == registro.id) {
                 arreglo.splice(contador, 1);
@@ -93,17 +94,36 @@ export class TablaUser extends React.Component {
     
       insertar= ()=>{
         var valorNuevo= {...this.state.form};
-        valorNuevo.id=this.state.data.length+1;
-        //promesa
+       // valorNuevo.id=this.state.data.length+1;//Nuevo id
+        
+        // Admin.CreateUser("Sebas",
+        // "fernando7829@hotmail.com",
+        // "sebas",
+        // "ADMIN",
+         //5)
+        // promesa
         Admin.CreateUser(valorNuevo.username,
           valorNuevo.email,
           valorNuevo.name,
-          valorNuevo.maxsize).then(data =>
+          valorNuevo.type_user,
+          parseInt(valorNuevo.maxsize)
+          )
+          .then(data =>
             {
               var lista= this.state.data;
               lista.push(valorNuevo);
               this.setState({ modalInsertar: false, data: lista });
             })
+          console.log(valorNuevo.username);
+          console.log(valorNuevo.email);
+          console.log(valorNuevo.name);
+          console.log(valorNuevo.type_user);
+          console.log(valorNuevo.username);
+          
+            
+            window.location.reload();
+
+        
        
       }
     
@@ -170,7 +190,7 @@ export class TablaUser extends React.Component {
               </ModalHeader>
     
               <ModalBody>
-                <FormGroup>
+                {/* <FormGroup>
                   <label>
                    Id:
                   </label>
@@ -181,9 +201,9 @@ export class TablaUser extends React.Component {
                     type="text"
                     value={this.state.form.id}
                   />
-                </FormGroup>
+                </FormGroup> */}
                 
-                {/* <FormGroup>
+                 <FormGroup>
                   <label>
                     Username: 
                   </label>
@@ -195,7 +215,7 @@ export class TablaUser extends React.Component {
                     value={this.state.form.username}
                   />
                 </FormGroup>
-                
+                 {/*
                 <FormGroup>
                   <label>
                     Email: 
@@ -231,7 +251,7 @@ export class TablaUser extends React.Component {
                     onChange={this.handleChange}
                     value={this.state.form.type_user}
                   />
-                </FormGroup> */}
+                </FormGroup>  */}
                 <FormGroup>
                   <label>
                     Maxsize: 
@@ -270,7 +290,7 @@ export class TablaUser extends React.Component {
               </ModalHeader>
     
               <ModalBody>
-                <FormGroup>
+                {/* <FormGroup>
                   <label>
                     Id: 
                   </label>
@@ -281,7 +301,7 @@ export class TablaUser extends React.Component {
                     type="text"
                     value={this.state.data.length+1}
                   />
-                </FormGroup>
+                </FormGroup> */}
                 
                 <FormGroup>
                   <label>
