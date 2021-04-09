@@ -3,7 +3,6 @@ import React from 'react';
 import '../../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter } from 'reactstrap';
-import {ListarUsers} from './Users';
 import Admin from '../../Request/admin';
 
 
@@ -92,7 +91,7 @@ export class TablaUser extends React.Component {
         }
       };
     
-      insertar= ()=>{
+      insertar = () => {
         var valorNuevo= {...this.state.form};
        // valorNuevo.id=this.state.data.length+1;//Nuevo id
         
@@ -136,10 +135,11 @@ export class TablaUser extends React.Component {
         });
       };
       
-      getListUser=async()=>{
-        await ListarUsers.then(
-          data=>this.setState({...this.state,data})
-        )
+      getListUser = () => {
+        Admin.getUser().then(res => {
+          console.log('Data',res.data)
+          this.setState({...this.state,data:res.data.users})
+          });
       }
       
 
@@ -149,7 +149,7 @@ export class TablaUser extends React.Component {
       
       render() {
         
-        
+      console.log(this.state.data)
       const tabladinamica = this.state.data.map(dato =>
           <RegistroFila dato = {dato}
           mostrarModalActualizar = {this.mostrarModalActualizar}
@@ -163,7 +163,7 @@ export class TablaUser extends React.Component {
           <>
             <Container>
             <br />
-              <Button color="success" onClick={()=>this.mostrarModalInsertar()}>Crear</Button>
+              <Button color="success" onClick={() => this.mostrarModalInsertar()}>Crear</Button>
               <br />
               <br />
               <Table>
