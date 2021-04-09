@@ -116,18 +116,11 @@ export class TablaUser extends React.Component {
       parseInt(valorNuevo.maxsize)
     )
       .then(data => {
-        var lista = this.state.data;
-        lista.push(valorNuevo);
-        this.setState({ modalInsertar: false, data: lista });
-      })
-    console.log(valorNuevo.username);
-    console.log(valorNuevo.email);
-    console.log(valorNuevo.name);
-    console.log(valorNuevo.type_user);
-    console.log(valorNuevo.username);
-
-
-    window.location.reload();
+        // var lista = this.state.data;
+        // lista.push(valorNuevo);
+        this.setState({ modalInsertar: false});
+        this.getListUser()
+      });
 
 
 
@@ -138,7 +131,6 @@ export class TablaUser extends React.Component {
   // }
 
   handleChange = (e) => {
-    console.log(e.target.value);
     this.setState({
       form: {
         ...this.state.form,
@@ -149,7 +141,6 @@ export class TablaUser extends React.Component {
 
   getListUser = () => {
     Admin.getUser().then(res => {
-      console.log('Data', res.data)
       this.setState({ ...this.state, data: res.data.users })
     });
   }
@@ -158,6 +149,7 @@ export class TablaUser extends React.Component {
   componentDidMount() {
     this.getListUser()
   }
+ 
 
   render() {
 
@@ -168,7 +160,6 @@ export class TablaUser extends React.Component {
         mostrarModalActualizar={this.mostrarModalActualizar}
         eliminar={this.eliminar} />);
 
-    setTimeout(console.log, 2000, tabladinamica)
     /*  console.log(this.state.data,
        "imprimeintp"
        ) */
@@ -298,22 +289,19 @@ export class TablaUser extends React.Component {
             </FormGroup>
 
             <FormGroup>
-              <Form.Label>Type_user</Form.Label>
+              <Form.Label>Type user</Form.Label>
                 
-                  
-              {/* <input
-                className="form-control"
-                name="type_user"
-                type="text"
-                onChange={this.handleChange}
-              /> */}
               <Form.Control
                 as="select"
                 name="type_user"
                 onChange={this.handleChange}
+                placeholder="Select type"
+                
               >
-                <option>ADMIN</option>
+                <option>Select type...</option>
                 <option>CLIENT</option>
+                <option >ADMIN</option>
+                
               </Form.Control>
             </FormGroup>
 
@@ -364,13 +352,11 @@ export class RegistroFila extends React.Component {
       contador++;
 
     }
-
     return formatNumber.toFixed(2) + " " + unidadAlmacenamiento[contador];
   }
 
   render() {
     const dato = this.props.dato;
-    console.log(dato);
     return (
       <tr key={dato._id}>
         <td>{dato._id}</td>
