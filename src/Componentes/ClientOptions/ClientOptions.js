@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-
+import ReactPlayer from 'react-player'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ClientOptions.css';
 import Gallerys from '../Gallery';
@@ -12,7 +12,8 @@ import {
 } from 'react-bootstrap';
 
 import FileVisor from '../FileVisor';
-
+import VideoVisor  from '../VideoVisor';
+import SharedVisor  from '../SharedVisor';
 
 export default function ClientOptions(){
 
@@ -64,10 +65,10 @@ export default function ClientOptions(){
                             <Gallerys/>
                         </Tab.Pane>
                         <Tab.Pane eventKey="videos">
-                            ssss
+                            <VideoVisor/>
                         </Tab.Pane>
                         <Tab.Pane eventKey="shared">
-                            ssss
+                            <SharedVisor/>
                         </Tab.Pane>
                     </Tab.Content>
                     </Col>

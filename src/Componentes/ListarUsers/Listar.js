@@ -2,9 +2,11 @@ import React from 'react';
 //import logo from '../logo.svg';
 import '../../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter  } from 'reactstrap';
 import {Form} from 'react-bootstrap';
 import './Listar.css';
+
 import Admin from '../../Request/admin';
 
 //const [users, setUsers] = useState(null);
@@ -92,6 +94,7 @@ export class TablaUser extends React.Component {
           this.setState({ data: arreglo, modalActualizar: false });
 
         })
+
 
     }
   };
@@ -205,6 +208,7 @@ export class TablaUser extends React.Component {
             <FormGroup>
               <label>
                 Id:
+
                   </label>
 
               <input

@@ -15,6 +15,20 @@ class File{
                 'Authorization':`Bearer ${user.access_token}`
             },
         }
+           return axios(
+                opt
+            )
+    }
+    async getVideos(){
+        const user = Auth.getUser();
+        const opt = {
+            method:'GET',
+            url:this.URL + 'videos',
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':`Bearer ${user.access_token}`
+            },
+        }
         
            return axios(
                 opt
@@ -63,6 +77,22 @@ class File{
         let img = await this.fetchImg(url);
         return img
         
+    }
+    async loadImg(url){
+        const user = Auth.getUser();
+        const opt = {
+            method:'GET',
+            url:url,
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':`Bearer ${user.access_token}`,
+            },
+        }
+        const img = (await axios(opt)).data;
+        return new Promise((resolve, reject) => {
+            const dataImg = `data:image/png;base64,${img}`;
+            resolve(dataImg)
+          });
     }
     async upload(file,path){
         const formData = new FormData();
@@ -248,6 +278,74 @@ class File{
            return axios(
                 opt
             )  
+    }
+    async getSharedFiles(){
+        const user = Auth.getUser();
+        const opt = {
+            method:'GET',
+            url: `${this.URL}shared` ,
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${user.access_token}`
+            }
+        }
+        
+           return axios(
+                opt
+            )    
+    }
+    async downloadSharedFile(ud, id){
+        const user = Auth.getUser();
+        const opt = {
+            method:'GET',
+            url: `${this.URL}shared/${ud}/${id}` ,
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${user.access_token}`
+            }
+        }
+        
+           return axios(
+                opt
+            )    
+    
+    }
+    async deleteSharedFile(ud, id){
+        const user = Auth.getUser();
+        const opt = {
+            method:'DELETE',
+            url: `${this.URL}shared/${ud}/${id}` ,
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${user.access_token}`
+            }
+        }
+        
+           return axios(
+                opt
+            )    
+    
+    }
+    async renameSharedFile(ud, id, name){
+        const user = Auth.getUser();
+        const opt = {
+            method:'PUT',
+            url: `${this.URL}shared` ,
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${user.access_token}`
+            },
+            data:{
+                ud:ud,
+                _id:id,
+                name: name
+            }
+        }
+        
+           return axios(
+                opt
+            )    
+    
     }
 }
 
