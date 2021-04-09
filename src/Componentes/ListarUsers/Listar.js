@@ -2,8 +2,9 @@ import React from 'react';
 //import logo from '../logo.svg';
 import '../../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter } from 'reactstrap';
-import { ListarUsers } from './Users';
+import { Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter  } from 'reactstrap';
+import {Form} from 'react-bootstrap';
+import './Listar.css';
 import Admin from '../../Request/admin';
 
 //const [users, setUsers] = useState(null);
@@ -55,22 +56,22 @@ export class TablaUser extends React.Component {
   editar = (dato) => {
     var contador = 0;
     var arreglo = this.state.data;
-    
+
     //promesa
     Admin.EditUser(dato._id, dato.maxsize)
-    
-    .then(data => {
-      arreglo.map((registro) => {
-        if (dato._id == registro._id) {
 
-          arreglo[contador].maxsize = dato.maxsize;
+      .then(data => {
+        arreglo.map((registro) => {
+          if (dato._id == registro._id) {
 
-        }
-        contador++;
-      });
-      this.setState({ data: arreglo, modalActualizar: false });
+            arreglo[contador].maxsize = dato.maxsize;
 
-    })
+          }
+          contador++;
+        });
+        this.setState({ data: arreglo, modalActualizar: false });
+
+      })
 
   };
 
@@ -134,6 +135,7 @@ export class TablaUser extends React.Component {
   // }
 
   handleChange = (e) => {
+    console.log(e.target.value);
     this.setState({
       form: {
         ...this.state.form,
@@ -142,11 +144,11 @@ export class TablaUser extends React.Component {
     });
   };
 
-  getListUser = async () => {
-    await ListarUsers.then(
-      data => this.setState({ ...this.state, data }),
-      
-    )
+  getListUser = () => {
+    Admin.getUser().then(res => {
+      console.log('Data', res.data)
+      this.setState({ ...this.state, data: res.data.users })
+    });
   }
 
 
@@ -174,22 +176,24 @@ export class TablaUser extends React.Component {
           <Button color="success" onClick={() => this.mostrarModalInsertar()}>Crear</Button>
           <br />
           <br />
-          <Table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Name</th>
-                <th>Type_user</th>
-                <th>Maxsize</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tabladinamica}
-            </tbody>
-          </Table>
+          <div className="view-users">
+            <Table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Name</th>
+                  <th>Type_user</th>
+                  <th>Maxsize</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tabladinamica}
+              </tbody>
+            </Table>
+          </div>
         </Container>
 
         <Modal isOpen={this.state.modalActualizar}>
@@ -198,68 +202,20 @@ export class TablaUser extends React.Component {
           </ModalHeader>
 
           <ModalBody>
-             <FormGroup>
-                  <label>
-                   Id:
-                  </label>
-                
-                  <input
-                    className="form-control"
-                    readOnly
-                    type="text"
-                    value={this.state.form._id}
-                  />
-                </FormGroup> 
-
-            {/* <FormGroup>
+            <FormGroup>
               <label>
-                Username:
+                Id:
                   </label>
+
               <input
                 className="form-control"
-                name="username"
+                readOnly
                 type="text"
-                onChange={this.handleChange}
-                value={this.state.form.username}
+                value={this.state.form._id}
               />
-            </FormGroup> */}
-            {/*
-                <FormGroup>
-                  <label>
-                    Email: 
-                  </label>
-                  <input
-                    className="form-control"
-                    name="email"
-                    type="text"
-                    onChange={this.handleChange}
-                    value={this.state.form.email}
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>
-                    Name: 
-                  </label>
-                  <input
-                    className="form-control"
-                    name="name"
-                    type="text"
-                    onChange={this.handleChange}
-                    value={this.state.form.name}
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <label>
-                    Type_user: 
-                  </label>
-                  <input
-                    className="form-control"
-                    name="type_user"
-                    type="text"
-                    onChange={this.handleChange}
-                    value={this.state.form.type_user}
-                  />
-                </FormGroup>  */}
+            </FormGroup>
+
+           
             <FormGroup>
               <label>
                 Maxsize:
@@ -298,19 +254,8 @@ export class TablaUser extends React.Component {
           </ModalHeader>
 
           <ModalBody>
-            {/* <FormGroup>
-                  <label>
-                    Id: 
-                  </label>
-                  
-                  <input
-                    className="form-control"
-                    readOnly
-                    type="text"
-                    value={this.state.data.length+1}
-                  />
-                </FormGroup> */}
-
+            
+              <Form>
             <FormGroup>
               <label>
                 Username:
@@ -349,15 +294,23 @@ export class TablaUser extends React.Component {
             </FormGroup>
 
             <FormGroup>
-              <label>
-                Type_user:
-                  </label>
-              <input
+              <Form.Label>Type_user</Form.Label>
+                
+                  
+              {/* <input
                 className="form-control"
                 name="type_user"
                 type="text"
                 onChange={this.handleChange}
-              />
+              /> */}
+              <Form.Control
+                as="select"
+                name="type_user"
+                onChange={this.handleChange}
+              >
+                <option>ADMIN</option>
+                <option>CLIENT</option>
+              </Form.Control>
             </FormGroup>
 
             <FormGroup>
@@ -371,6 +324,7 @@ export class TablaUser extends React.Component {
                 onChange={this.handleChange}
               />
             </FormGroup>
+            </Form>
           </ModalBody>
 
           <ModalFooter>
@@ -392,9 +346,23 @@ export class TablaUser extends React.Component {
     );
   }
 }
-
+const unidadAlmacenamiento = [
+  'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'
+];
 export class RegistroFila extends React.Component {
+  showSize = (size) => {
+    let contador = 0;
+    let formatNumber = size
+    var length = Math.log(formatNumber) * Math.LOG10E + 1 | 0;
+    while (length >= 4) {
+      formatNumber = formatNumber / 1024;
+      length = Math.log(formatNumber) * Math.LOG10E + 1 | 0;
+      contador++;
 
+    }
+
+    return formatNumber.toFixed(2) + " " + unidadAlmacenamiento[contador];
+  }
 
   render() {
     const dato = this.props.dato;
@@ -406,7 +374,7 @@ export class RegistroFila extends React.Component {
         <td>{dato.email}</td>
         <td>{dato.name}</td>
         <td>{dato.type_user}</td>
-        <td>{dato.maxsize}</td>
+        <td>{this.showSize(dato.maxsize)}</td>
         <td>
           <Button
             color="primary"
