@@ -29,13 +29,13 @@ export default function ClientOptions(){
 
                         <Nav.Link  eventKey="files">
                             <Icon.FileEarmark size={25}/>
-                            Files
+                            Archivos
                         </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                         <Nav.Link  eventKey="photos">
                             <Icon.Images size={25}/>
-                            Photos
+                            Fotos
                         </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
@@ -47,7 +47,7 @@ export default function ClientOptions(){
                         <Nav.Item>
                         <Nav.Link eventKey="shared">
                             <Icon.People size={25}/>
-                            Shared
+                            Compartidos
                         </Nav.Link>
                         </Nav.Item>
 

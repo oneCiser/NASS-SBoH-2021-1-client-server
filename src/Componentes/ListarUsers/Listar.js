@@ -175,11 +175,11 @@ export class TablaUser extends React.Component {
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Username</th>
+                  <th>Usuario</th>
                   <th>Email</th>
-                  <th>Name</th>
-                  <th>Type_user</th>
-                  <th>Maxsize</th>
+                  <th>Nombre</th>
+                  <th>Tipo_usuario</th>
+                  <th>Almacenamiento</th>
                   <th>Acción</th>
                 </tr>
               </thead>
@@ -213,7 +213,7 @@ export class TablaUser extends React.Component {
            
             <FormGroup>
               <label>
-                Maxsize:
+                Almacenamiento:
                   </label>
               <input
                 className="form-control"
@@ -253,7 +253,7 @@ export class TablaUser extends React.Component {
               <Form>
             <FormGroup>
               <label>
-                Username:
+                Usuario:
                   </label>
               <input
                 className="form-control"
@@ -278,7 +278,7 @@ export class TablaUser extends React.Component {
 
             <FormGroup>
               <label>
-                Name:
+                Nombre:
                   </label>
               <input
                 className="form-control"
@@ -289,7 +289,7 @@ export class TablaUser extends React.Component {
             </FormGroup>
 
             <FormGroup>
-              <Form.Label>Type user</Form.Label>
+              <Form.Label>Tipo_usuario</Form.Label>
                 
               <Form.Control
                 as="select"
@@ -298,7 +298,7 @@ export class TablaUser extends React.Component {
                 placeholder="Select type"
                 
               >
-                <option>Select type...</option>
+                <option>Seleccionar tipo...</option>
                 <option>CLIENT</option>
                 <option >ADMIN</option>
                 
@@ -307,7 +307,7 @@ export class TablaUser extends React.Component {
 
             <FormGroup>
               <label>
-                Maxsize:
+                Almacenamiento:
                   </label>
               <input
                 className="form-control"
@@ -324,7 +324,7 @@ export class TablaUser extends React.Component {
               color="primary"
               onClick={() => this.insertar()}
             >
-              Insertar
+              Crear
                 </Button>
             <Button
               className="btn btn-danger"

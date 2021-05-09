@@ -190,25 +190,25 @@ function Gallerys() {
               <Icon.Funnel size={20}/>
               </Button>
             } id="collasible-nav-dropdown" >
-                <NavDropdown.Item onClick={sortbyNameAsc}>By name <Icon.SortAlphaUp size={23}/></NavDropdown.Item>
-                <NavDropdown.Item onClick={sortbyNameDesc}>By name <Icon.SortAlphaDown size={23}/></NavDropdown.Item>
-                <NavDropdown.Item onClick={sortbyDateAsc}> By date <Icon.SortUp size={23}/></NavDropdown.Item>
-                <NavDropdown.Item onClick={sortbyDateDesc}>By date <Icon.SortDown size={23}/></NavDropdown.Item>
-                <NavDropdown.Item onClick={sortbyweightAsc}>By weight <Icon.SortNumericUp size={23}/></NavDropdown.Item>
-                <NavDropdown.Item onClick={sortbyweightDesc}>By weight<Icon.SortAlphaDown size={23}/></NavDropdown.Item>
+                <NavDropdown.Item onClick={sortbyNameAsc}>Por Nombre <Icon.SortAlphaUp size={23}/></NavDropdown.Item>
+                <NavDropdown.Item onClick={sortbyNameDesc}>Por Nombre <Icon.SortAlphaDown size={23}/></NavDropdown.Item>
+                <NavDropdown.Item onClick={sortbyDateAsc}> Por Fecha <Icon.SortUp size={23}/></NavDropdown.Item>
+                <NavDropdown.Item onClick={sortbyDateDesc}>Por Fecha <Icon.SortDown size={23}/></NavDropdown.Item>
+                <NavDropdown.Item onClick={sortbyweightAsc}>Por Peso <Icon.SortNumericUp size={23}/></NavDropdown.Item>
+                <NavDropdown.Item onClick={sortbyweightDesc}>Por Peso<Icon.SortAlphaDown size={23}/></NavDropdown.Item>
             </NavDropdown> 
 
             </Nav>
             <Form>
             <Button variant="outline-dark" onClick={syncImages}>
               <Icon.ArrowClockwise size={25}/>
-                Sync
+                Sincronizar
             </Button>{' '}
             </Form>
             <Nav className="mr-auto">
                 
             </Nav>
-            <Navbar.Brand href="#">Gallery</Navbar.Brand>
+            <Navbar.Brand href="#">Galeria</Navbar.Brand>
             </Navbar>
     
     <div className="view-images">
