@@ -115,14 +115,14 @@ export default function Login(props){
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>
-                                Username
+                                Usuario
                             </Form.Label>
                             <Form.Control type="text" placeholder="Enter username" name="userName" onChange={getCredentials}/>
                         </Form.Group>
 
                         <Form.Group>
                             <Form.Label>
-                                Password
+                                Contraseña
                             </Form.Label>
                             <Form.Control type="password" placeholder="Password" name="userPassword" onChange={getCredentials}/> 
                         </Form.Group>

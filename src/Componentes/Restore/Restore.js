@@ -52,7 +52,7 @@ export default function Restore() {
                 <Modal.Body>
                     <Form>
                     <Form.Group >
-                        <Form.Label>password</Form.Label>
+                        <Form.Label>Contraseña</Form.Label>
                         <Form.Control 
                             id="password"  
                             name="password" 

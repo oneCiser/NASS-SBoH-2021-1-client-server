@@ -161,19 +161,19 @@ export default function RowTableFiles(props){
                                                     </Dropdown.Toggle>
                                                     <Dropdown.Menu>
                                                         <Dropdown.Item onClick={onClickDeleteFile}>
-                                                            Delete
+                                                            Eliminar
                                                         </Dropdown.Item>
                                                         <Dropdown.Item onClick={showModalRename}>
-                                                            Rename
+                                                            Renombrar
                                                         </Dropdown.Item>
                                                         {   file['share'] &&
                                                             <Dropdown.Item onClick={onShareFile}>
-                                                                Share
+                                                                Compartir
                                                             </Dropdown.Item>
                                                         }
 
                                                         <Dropdown.Item onClick={onClickDownload}>
-                                                            Download
+                                                            Descargar
                                                         </Dropdown.Item>
                                                     </Dropdown.Menu>
                                                 
@@ -239,14 +239,14 @@ export default function RowTableFiles(props){
                 <Modal.Header closeButton>
                     <Modal.Title>
                             <Icon.Tools size={25}/> {' '}
-                            Rename
+                            Renombrar
                         </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group>
                                 <Form.Label>
-                                    New name
+                                    Nuevo nombre
                                 </Form.Label>
                                 <Form.Control type="text" placeholder="Name without extension" ref={newNameFile}/>
                             </Form.Group>

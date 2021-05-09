@@ -122,7 +122,7 @@ export default function BodyTableFiles(props){
                     <Modal.Header closeButton>
                         <Modal.Title>
                                 <Icon.Share size={25}/> {' '}
-                                Share {selectFile ? selectFile.name : ""}
+                                Compartido {selectFile ? selectFile.name : ""}
                             </Modal.Title>
                     </Modal.Header>
                     <Modal.Body >
@@ -131,8 +131,8 @@ export default function BodyTableFiles(props){
                                 <Table  >
                                     <thead>
                                         <tr>
-                                            <th>User</th>
-                                            <th>Write</th>
+                                            <th>Usuario</th>
+                                            <th>Escribiendo</th>
                                             <th>{' '}</th>
                                         </tr>
                                     </thead>
@@ -171,7 +171,7 @@ export default function BodyTableFiles(props){
                             </Form.Group>        
                         </Form>
                         <Form>
-                        <Form.Label>User</Form.Label>
+                        <Form.Label>Usuario</Form.Label>
                         <Form.Group>
                         <InputGroup>
                         
@@ -213,10 +213,10 @@ export default function BodyTableFiles(props){
 
 
                     <Button variant="secondary" onClick={showShare}>
-                            Close
+                            Cerrar
                         </Button>
                         <Button variant="primary" onClick={onSaveChangeShareClick}>
-                            Save
+                            Guardar
                         </Button>
                     </Modal.Footer>
                 </Modal>

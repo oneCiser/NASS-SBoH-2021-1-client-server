@@ -49,15 +49,15 @@ export default function NavFiles(props){
                 <Form>
                     <Button variant="outline-primary" onClick={showCreateFolder}>
                         <Icon.FolderPlus size={25}/>
-                        Folder
+                        Carpeta
                     </Button>{' '}
                     <Button variant="outline-primary" onClick={showCreateFile}>
                         <Icon.FileEarmarkArrowUp size={25}/>
-                        Upload
+                        Subir
                     </Button>{' '}
                     <Button variant="outline-primary" onClick={onSyncClick}>
                         <Icon.ArrowClockwise size={25}/>
-                        Sync
+                        Sincronizar
                     </Button>
                 </Form>
                 <Nav className="mr-auto">
@@ -73,14 +73,14 @@ export default function NavFiles(props){
                 <Modal.Header closeButton>
                     <Modal.Title>
                         <Icon.FolderPlus size={25}/> {' '}
-                        New folder
+                        Nueva carpeta
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group>
                             <Form.Label>
-                                Folder name
+                                Nombre de carpeta
                             </Form.Label>
                             <Form.Control type="text" placeholder="Name" ref={folderName}/>
                         </Form.Group>
@@ -100,7 +100,7 @@ export default function NavFiles(props){
                 <Modal.Header closeButton>
                     <Modal.Title>
                         <Icon.FileEarmarkCheck size={25}/> {' '}
-                        New file
+                        Nuevo archivo
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

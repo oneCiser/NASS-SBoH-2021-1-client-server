@@ -19,7 +19,7 @@ export default function NavFiles(props){
                 <Form>
                     <Button variant="outline-primary" onClick={onSyncClick}>
                         <Icon.ArrowClockwise size={25}/>
-                        Sync
+                        Sincronizar
                     </Button>
                 </Form>
                 <Nav className="mr-auto">
